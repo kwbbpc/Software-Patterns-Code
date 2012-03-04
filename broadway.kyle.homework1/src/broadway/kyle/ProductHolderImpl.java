@@ -71,8 +71,7 @@ public class ProductHolderImpl implements ProductHolder
         productMap.put(productId, quantity);
 
         // fire the property change
-        pcs.firePropertyChange("productMap", oldMap, productMap);
-        pcs.firePropertyChange("quantity", oldProductQuantity.intValue(), quantity);
+        pcs.firePropertyChange("quantities", oldMap, productMap);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -119,8 +118,11 @@ public class ProductHolderImpl implements ProductHolder
         }
 
         // fire the property change
-        pcs.firePropertyChange("productMap", oldMap, productMap);
-        pcs.firePropertyChange("quantity", oldProductQuantity.intValue(), newQuantity);
+        if (isEmpty())
+        {
+            pcs.firePropertyChange("empty", oldMap, productMap);
+        }
+        pcs.firePropertyChange("quantities", oldMap, productMap);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -160,7 +162,8 @@ public class ProductHolderImpl implements ProductHolder
 
         productMap.clear();
 
-        pcs.firePropertyChange("productMap", oldMap, productMap);
+        pcs.firePropertyChange("quantities", oldMap, productMap);
+        pcs.firePropertyChange("empty", oldMap, productMap);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -168,7 +171,25 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public boolean isEmpty()
     {
-        return productMap.isEmpty();
+        if (productMap == null)
+        {
+            //there is no product holder
+            return true;
+        }
+
+        for (Map.Entry<String, Integer> iterProductMap : productMap.entrySet())
+        {
+            //if any of the products have a quantity
+            if (iterProductMap.getValue() != 0)
+            {
+                //the product holder is not empty
+                return false;
+            }
+        }
+
+        //if the for loop finishes without returning, all quantities are 0.
+        return true;
+
     }
 
     @Override

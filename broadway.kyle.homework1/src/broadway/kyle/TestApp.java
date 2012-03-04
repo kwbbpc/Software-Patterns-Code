@@ -14,10 +14,59 @@ import com.javadude.beans.ProductHolder;
 public class TestApp
 {
 
-    public static void main(String args[])
-    {
+    private static Customer customerJohn;
+    private static Catalog catalog;
+    private static ProductHolder cart;
+    private static ProductHolder inventory;
+    private static Client client;
 
-        Customer customerJohn = new CustomerImpl("45681354", "John", "11 Street", "Germantown", "Maryland", "20874", "555-5555", "l3tm31n");
+    private static Product testProduct = new ProductImpl("TEST", "Test Product", 1, "A test product for testing");
+
+    public static void TestIsEmpty()
+    {
+        Setup();
+
+        catalog.addProduct(testProduct);
+        inventory.addQuantity(testProduct.getId(), 500);
+
+        assert (cart.isEmpty() == true);
+        cart.addQuantity("TEST", 1);
+        assert (cart.isEmpty() != true);
+        cart.removeQuantity("TEST", 1);
+        assert (cart.isEmpty() == true);
+        cart.addQuantity("TEST", 0);
+        assert (cart.isEmpty() == true);
+
+    }
+
+    public static void TestAddToCart()
+    {
+        //TODO
+        Setup();
+
+        catalog.addProduct(testProduct);
+        inventory.addQuantity(testProduct.getId(), 3);
+
+        //Add all 3 items to the cart.
+        client.addToCart(testProduct.getId(), 3);
+
+    }
+
+    private static void Setup()
+    {
+        ClearMembers();
+
+        cart.setCatalog(catalog);
+
+        customerJohn.setCart(cart);
+
+        customerJohn.getBoughtItems().setCatalog(catalog);
+
+        inventory.setCatalog(catalog);
+    }
+
+    private static void AddPropertyChangeListeners()
+    {
 
         customerJohn.getBoughtItems().addPropertyChangeListener(new PropertyChangeListener()
         {
@@ -25,7 +74,7 @@ public class TestApp
             public void propertyChange(PropertyChangeEvent evt)
             {
                 // If the change was to the history
-                if (evt.getPropertyName() == "productMap")
+                if (evt.getPropertyName() == "quantities")
                 {
                     System.out.println("");
                     System.out.println("Customer history changed:");
@@ -44,8 +93,6 @@ public class TestApp
             }
         });
 
-        Catalog catalog = new CatalogImpl();
-
         catalog.addPropertyChangeListener(new PropertyChangeListener()
         {
             @Override
@@ -55,15 +102,13 @@ public class TestApp
             }
         });
 
-        ProductHolder cart = new ProductHolderImpl();
-
         cart.addPropertyChangeListener(new PropertyChangeListener()
         {
             @Override
             public void propertyChange(PropertyChangeEvent evt)
             {
                 // If the change was to the cart
-                if (evt.getPropertyName() == "productMap")
+                if (evt.getPropertyName() == "quantities")
                 {
                     System.out.println("");
                     System.out.println("Customer cart changed:");
@@ -82,20 +127,13 @@ public class TestApp
             }
         });
 
-        cart.setCatalog(catalog);
-
-        customerJohn.setCart(cart);
-
-        customerJohn.getBoughtItems().setCatalog(catalog);
-
-        ProductHolder inventory = new ProductHolderImpl();
         inventory.addPropertyChangeListener(new PropertyChangeListener()
         {
             @Override
             public void propertyChange(PropertyChangeEvent evt)
             {
                 // If the change was to the history
-                if (evt.getPropertyName() == "productMap")
+                if (evt.getPropertyName() == "quantities")
                 {
                     System.out.println("");
                     System.out.println("Inventory changed:");
@@ -113,9 +151,27 @@ public class TestApp
                 }
             }
         });
-        inventory.setCatalog(catalog);
 
-        Client client = new ClientImpl();
+    }
+
+    private static void ClearMembers()
+    {
+        customerJohn = new CustomerImpl("45681354", "John", "11 Street", "Germantown", "Maryland", "20874", "555-5555", "l3tm31n");
+        catalog = new CatalogImpl();
+        cart = new ProductHolderImpl();
+        inventory = new ProductHolderImpl();
+        client = new ClientImpl();
+    }
+
+    public static void main(String args[])
+    {
+
+        //Tests
+        TestIsEmpty();
+
+        Setup();
+
+        AddPropertyChangeListeners();
 
         Product product1 = new ProductImpl("1", "Product 1", 100, "The first product");
         Product product2 = new ProductImpl("2", "Product 2", 200, "The second product");
