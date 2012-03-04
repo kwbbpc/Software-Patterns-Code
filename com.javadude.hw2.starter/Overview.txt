@@ -1,0 +1,111 @@
+HW1: JavaBeans and Observer
+---------------------------
+	Beans that describe
+	* Product
+		* id (String)
+		* name (String)
+		* description (String)
+		* price (double)
+		* add/remove PCL
+	* Catalog
+		* items (Map<Item, Integer> to track stock)
+		* add/remove items
+		* add/remove PCL
+	* Customer
+		* name (String)
+		* street (String)
+		* city (String)
+		* zip (String)
+		* phone (String)
+		* id (String)
+		* password (String)
+		* boughtItems (Map<Item, Integer> to track quantities)
+		* totalSpent (double)
+		* cart (ShoppingCart)
+		* add/remove PCL
+	* Shopping cart
+		* items (Map<Item, Integer> to track quantities)
+		* total (double)
+		* add/remove items
+		* empty
+		* add/remove PCL
+	* Commander
+		* *** FLAKY... COME UP WITH BETTER CUSTOM EVENT IDEA ***
+		* Has high-level command methods for "add/remove item", "update customer" etc
+		* Each simply fires a custom event
+		* (Not terribly useful now)
+	* Test Application
+		* create user
+		* create cart
+		* create 10 products with varying quantities on hand
+		* Listen for commands and perform actions
+
+HW2: MVC
+	Integrate with simple GUI to test beans
+	* overall frame that has both
+		* user info section
+		* product list section
+		* shopping cart section
+	Setup listeners that
+	* synch data with screens
+	* report changes to stdout
+	
+HW3: Template Method and Strategy
+	Create base web framework
+	* Main controller is template method
+	* Examines requests and creates instances of commands/strategies
+	* Runs commands (hooks)
+	* Reports what happened on result web page
+	NEEDS:
+		* dummy web pages with hardcoded requests for testing
+
+HW4: Composite and Visitor
+	Create data beans for a composite HTML renderer
+	* Beans for several common HTML tags
+	* Interface for "rendering"
+		* void render(PrintWriter out)
+	* Each bean can render itself
+	* Separate copy of beans that do not render
+		* Visitor that can render them
+	* NEEDS
+		* sample code to test these (junit?)
+		* dummy web pages with hardcoded requests for testing
+
+HW5: Getting rid of "new"
+	Convert all "new" calls to factory methods
+	* Use parameterized factory methods for commands
+	* Use standard factory methods for everything else
+	NEEDS:
+		* dummy web pages with hardcoded requests for testing
+	
+HW6: Builder
+	Use the Builder pattern to create the page HTML object structure
+	* Each page uses a custom director
+	* Common builder Methods to create/add composite objects
+	NEEDS
+		* definition of pages
+		* dummy web pages with hardcoded requests for testing
+	
+HW7: Adapter and Decorator
+	Modify commands to log what's happening
+	* Change factory methods to conditionally return decorated commands that log details
+	* ???? Adapter???	
+	NEEDS
+		* dummy web pages with hardcoded requests for testing
+
+HW8: State
+	Create web flow using traditional State Pattern (via enums)
+	* State machine for web site flow
+	* Transitions triggered by controllers
+	
+HW9: Dependency Injection
+	Setup web flow using dependency injection
+	* State and transition objects setup via XML? Guice code?
+
+HW10: Library Evolution
+	* Handed existing library and client code that uses it
+	* Given new spec for API (using Java 2 collections)
+	* Create new API using Bridge pattern
+		* same backend; different front-ends
+	* Update client code to use new API
+	* Change backend to use different persistence approach
