@@ -14,6 +14,6 @@ public interface ActionStrategy
      * 
      * @param strategy
      */
-    void go(Map<String, String[]> strategy);
+    void go(Map<String, String[]> parameters);
 
 }

@@ -12,8 +12,8 @@ import java.util.Map;
 public class ParameterParser
 {
 
-    private static final String itemId = "itemId";
-    private static final String quantity = "quantity";
+    public static final String itemId = "itemId";
+    public static final String quantity = "quantity";
 
     /**
      * Parses through the given map of parameters and returns the value

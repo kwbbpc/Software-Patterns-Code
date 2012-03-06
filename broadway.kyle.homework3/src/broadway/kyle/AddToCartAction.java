@@ -21,8 +21,13 @@ public class AddToCartAction implements ActionStrategy
     private UndoManager commandManager;
 
     /**
-     * Constructor for an add to cart action
+     * Constructor.
      * 
+     * 
+     * @param client
+     * The client to execute commands
+     * @param commandManager
+     * The undo manager handling execution
      */
     public AddToCartAction(Client client, UndoManager undoManager)
     {
@@ -33,9 +38,6 @@ public class AddToCartAction implements ActionStrategy
 
     /* (non-Javadoc)
      * @see broadway.kyle.ActionStrategy#go(java.util.Map)
-     * 
-     * Add the item quantity to the cart
-     * 
      */
     @Override
     public void go(Map<String, String[]> parameters)
@@ -44,41 +46,20 @@ public class AddToCartAction implements ActionStrategy
         String productId = null;
         Integer quantity = null;
 
-        try
+        //Read the item id
+        productId = (String) ParameterParser.find(ParameterParser.itemId, parameters);
+        //Read the quantity
+        quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
+
+        //Create the add to cart command
+        Command addToCartCommand = new AddToCartCommand(client, productId, quantity.intValue());
+        if (commandManager != null)
         {
-            //Read the item id
-            productId = (String) ParameterParser.find("itemId", parameters);
-
-            //Read the quantity
-            quantity = (Integer) ParameterParser.find("quantity", parameters);
-        }
-        catch (ClassCastException e)
-        {
-            productId = "";
-            quantity = 0;
-            System.out.println("AddToCartAction Failed: Could not find itemId or quantity parameters");
-        }
-
-        Command addToCartCommand = null;
-
-        if (client != null)
-        {
-            //Create the add to cart command
-            addToCartCommand = new AddToCartCommand(client, productId, quantity.intValue());
-            if (commandManager != null)
-            {
-                commandManager.execute(addToCartCommand);
-            }
-            else
-            {
-                System.out.println("Failed to execute add to cart: command manager does not exist.");
-                assert (false);
-            }
-
+            commandManager.execute(addToCartCommand);
         }
         else
         {
-            System.out.println("Failed to add to cart: client does not exist.");
+            System.out.println("Failed to execute add to cart: command manager does not exist.");
             assert (false);
         }
 
