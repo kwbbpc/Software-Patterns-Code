@@ -21,6 +21,7 @@ public class TestApp
     private static Client client;
 
     private static Product testProduct = new ProductImpl("TEST", "Test Product", 1, "A test product for testing");
+    private static Product testProduct2 = new ProductImpl("TEST2", "Test Product2", 2, "A second test product for testing");
 
     public static void TestIsEmpty()
     {
@@ -39,17 +40,99 @@ public class TestApp
 
     }
 
-    public static void TestAddToCart()
+    private static boolean CompareMaps(Map<String, Integer> m1, Map<String, Integer> m2)
     {
-        //TODO
+        boolean b = false;
+
+        for (Map.Entry<String, Integer> e : m1.entrySet())
+        {
+            b = e.getValue().equals(m2.get(e.getKey()));
+            if (!b)
+                break;
+        }
+
+        return b;
+    }
+
+    public static void TestAddAndRemove()
+    {
         Setup();
 
+        //create the compare map
+        Map<String, Integer> holderComparable3 = new HashMap<String, Integer>();
+        holderComparable3.put("TEST", 3);
+        Map<String, Integer> holderComparable2 = new HashMap<String, Integer>();
+        holderComparable2.put("TEST", 2);
+        Map<String, Integer> holderComparable1 = new HashMap<String, Integer>();
+        holderComparable1.put("TEST", 1);
+        Map<String, Product> catalogComparable = new HashMap<String, Product>();
+        catalogComparable.put("TEST", testProduct);
+
+        //Add the test product to the catalog and inventory
         catalog.addProduct(testProduct);
         inventory.addQuantity(testProduct.getId(), 3);
+        //Test for the product in the catalog and inventory
+        //        assert (catalog.getProducts().equals(catalogComparable));
+        assert (CompareMaps(inventory.getQuantities(), holderComparable3));
 
         //Add all 3 items to the cart.
         client.addToCart(testProduct.getId(), 3);
+        //Verify
+        assert (CompareMaps(cart.getQuantities(), holderComparable3));
+        assert (inventory.isEmpty());
 
+        //Add a null item to the cart
+        client.addToCart(null, 3);
+        //Verify
+        assert (CompareMaps(cart.getQuantities(), holderComparable3));
+        assert (inventory.isEmpty());
+
+        /* Cannot add null quantities
+        * //Add a null quantity to the cart
+        * client.addToCart(testProduct.getId(), null);
+        * //Verify
+        * assert(cart.getQuantities().equals(holderComparable));
+        * assert(inventory.isEmpty());
+        */
+
+        //Add an item that doesn't exist
+        client.addToCart("DNE", 1);
+        //Verify
+        assert (CompareMaps(cart.getQuantities(), holderComparable3));
+        assert (inventory.isEmpty());
+
+        //Overdraw the inventory
+        client.addToCart(testProduct.getId(), 3);
+        //Should fail to add to cart
+        assert (CompareMaps(cart.getQuantities(), holderComparable3));
+        assert (inventory.isEmpty());
+
+        //Verify the total value
+        assert (inventory.getTotalValue() == 0);
+        assert (cart.getTotalValue() == 3);
+
+        //Remove 1 from the cart
+        client.removeFromCart(testProduct.getId(), 1);
+        assert (CompareMaps(cart.getQuantities(), holderComparable2));
+        assert (CompareMaps(inventory.getQuantities(), holderComparable1));
+        assert (catalog.getProducts().equals(catalogComparable));
+        assert (cart.getTotalValue() == 2);
+        assert (inventory.getTotalValue() == 1);
+
+        //Remove too many items from the cart
+        client.removeFromCart(testProduct.getId(), 10);
+        assert (cart.isEmpty());
+        assert (CompareMaps(inventory.getQuantities(), holderComparable3));
+        assert (inventory.getTotalValue() == 3);
+        assert (cart.getTotalValue() == 0);
+
+        assert (false);
+
+    }
+
+    private static boolean retFalse()
+    {
+        return false;
     }
 
     private static void Setup()
@@ -63,6 +146,7 @@ public class TestApp
         customerJohn.getBoughtItems().setCatalog(catalog);
 
         inventory.setCatalog(catalog);
+
     }
 
     private static void AddPropertyChangeListeners()
@@ -168,6 +252,7 @@ public class TestApp
 
         //Tests
         TestIsEmpty();
+        TestAddAndRemove();
 
         Setup();
 
