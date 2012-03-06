@@ -49,6 +49,9 @@ public class Controller extends HttpServlet
 
         initializeCatalogAndInventory();
 
+        //launch the GUI
+        new UI(inventory, customer, client).setVisible(true);
+
         //Create the different strategies
         strategyMap.put("addToCart", new AddToCartAction(client, commandManager));
         strategyMap.put("removeFromCart", new RemoveFromCartAction(client, commandManager));
@@ -65,7 +68,6 @@ public class Controller extends HttpServlet
     public Controller()
     {
         super();
-
     }
 
     /**
@@ -163,6 +165,20 @@ public class Controller extends HttpServlet
             }
         });
 
+        // Create an ordered command listener that will call it's listeners in a
+        // Guaranteed order
+        CommandListenerOrdered orderedCommandListener = new CommandListenerOrdered();
+        // history must be called before the cart
+        orderedCommandListener.addCommandListener(new CommandListenerHistory(customer.getBoughtItems(), cart));
+        // cart must be called after history
+        orderedCommandListener.addCommandListener(new CommandListenerCart(cart));
+
+        // register the ordered command lister with the client
+        client.addCommandListener(orderedCommandListener);
+        // register the remaining listeners
+        client.addCommandListener(new CommandListenerInventory(inventory));
+        client.addCommandListener(new CommandListenerPrint());
+
     }
 
     /**
@@ -215,10 +231,17 @@ public class Controller extends HttpServlet
     {
 
         //Template Method
-        String action = request.getParameter("action");
+        String actionString = request.getParameter("action");
 
         //find the requested action in the map and execute it
-        strategyMap.get(action).go(request.getParameterMap());
+        if (actionString != null)
+        {
+            ActionStrategy action = strategyMap.get(actionString);
+            if (action != null)
+            {
+                action.go(request.getParameterMap());
+            }
+        }
 
     }
 

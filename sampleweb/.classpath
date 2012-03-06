@@ -14,5 +14,17 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/util1"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework1"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.javadude.hw1.starter"/>
+	<classpathentry kind="lib" path="/broadway.kyle.homework1/build/classes/broadway/kyle">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/classes"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/com.javadude.hw1.starter/bin/com/javadude/beans">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/classes"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -4,6 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>util1</project>
+		<project>broadway.kyle.homework1</project>
+		<project>com.javadude.hw1.starter</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

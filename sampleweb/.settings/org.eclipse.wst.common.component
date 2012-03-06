@@ -6,6 +6,12 @@
         <dependent-module archiveName="util1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/util1/util1">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework1/broadway.kyle.homework1">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.javadude.hw1.starter.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.javadude.hw1.starter/com.javadude.hw1.starter">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="sampleweb"/>
         <property name="java-output-path" value="/sampleweb/build/classes"/>
     </wb-module>
