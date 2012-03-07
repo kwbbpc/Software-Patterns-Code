@@ -49,6 +49,13 @@ public class UndoManagerImpl implements UndoManager
     @Override
     public void undo()
     {
+        //ensure there's something to undo
+        if (undoStack.isEmpty())
+        {
+            System.out.println("nothing to undo.");
+            return;
+        }
+
         //undo the command
         Command lastCommand = undoStack.pop();
         lastCommand.undo();
@@ -64,6 +71,13 @@ public class UndoManagerImpl implements UndoManager
     @Override
     public void redo()
     {
+        //ensure there's something to redo
+        if (redoStack.isEmpty())
+        {
+            System.out.println("nothing to redo.");
+            return;
+        }
+
         //redo the command
         Command lastCommand = redoStack.pop();
         lastCommand.redo();

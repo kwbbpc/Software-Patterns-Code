@@ -33,9 +33,27 @@ public class ParameterParser
             String[] values = params.get(paramToFind);
 
             if (paramToFind.equals(itemId))
-                return values[0];
+            {
+                if (values.length >= 1)
+                    return values[0];
+                else
+                    return "";
+
+            }
+
             else if (paramToFind.equals(quantity))
-                return new Integer(Integer.parseInt(values[0]));
+            {
+                try
+                {
+                    return new Integer(Integer.parseInt(values[0]));
+                }
+                catch (NumberFormatException e)
+                {
+                    return 0;
+                }
+
+            }
+
         }
 
         return null;

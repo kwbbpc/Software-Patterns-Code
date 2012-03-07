@@ -13,10 +13,11 @@ public class ProductHolderImpl implements ProductHolder
 {
 
     // Quantity of products, keyed by productId
-    private Map<String, Integer> productMap = new HashMap<String, Integer>();
+    private Map<String, Integer> quantities = new HashMap<String, Integer>();
 
     // Catalog of products in the holder
-    private Catalog catalog;
+    private static Catalog NULL_CATALOG = new CatalogNull();
+    private Catalog catalog = NULL_CATALOG;
 
     // Property Change Support
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -38,7 +39,7 @@ public class ProductHolderImpl implements ProductHolder
     {
 
         int oldTotalValue = getTotalValue();
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(productMap);
+        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
 
         // Make sure the product to be added is in the catalog
         if (catalog.getProduct(productId) == null)
@@ -54,7 +55,7 @@ public class ProductHolderImpl implements ProductHolder
             return;
         }
 
-        Integer oldProductQuantity = productMap.get(productId);
+        Integer oldProductQuantity = quantities.get(productId);
 
         // the product already exists in the map. Add the quantity.
         if (oldProductQuantity != null)
@@ -68,10 +69,10 @@ public class ProductHolderImpl implements ProductHolder
         }
 
         // update the map
-        productMap.put(productId, quantity);
+        quantities.put(productId, quantity);
 
         // fire the property change
-        pcs.firePropertyChange("quantities", oldMap, productMap);
+        pcs.firePropertyChange("quantities", oldMap, quantities);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -79,7 +80,8 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public void removeQuantity(String productId, int quantityToRemove)
     {
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(productMap);
+
+        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
         int oldTotalValue = getTotalValue();
 
         int newQuantity = 0;
@@ -91,7 +93,7 @@ public class ProductHolderImpl implements ProductHolder
         }
 
         //Get the old product quantity
-        Integer oldProductQuantity = productMap.get(productId);
+        Integer oldProductQuantity = quantities.get(productId);
 
         //Check for the old product quantity
         if (oldProductQuantity == null)
@@ -109,20 +111,20 @@ public class ProductHolderImpl implements ProductHolder
             newQuantity = 0;
 
             // remove the 0 quantity product from the map if present.
-            productMap.remove(productId);
+            quantities.remove(productId);
         }
         else
         {
             // update the map with the new quantity
-            productMap.put(productId, newQuantity);
+            quantities.put(productId, newQuantity);
         }
 
         // fire the property change
         if (isEmpty())
         {
-            pcs.firePropertyChange("empty", oldMap, productMap);
+            pcs.firePropertyChange("empty", oldMap, quantities);
         }
-        pcs.firePropertyChange("quantities", oldMap, productMap);
+        pcs.firePropertyChange("quantities", oldMap, quantities);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -130,9 +132,9 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public int getQuantity(String productId)
     {
-        if (productMap.containsKey(productId))
+        if (quantities.containsKey(productId))
         {
-            return productMap.get(productId);
+            return quantities.get(productId);
         }
         else
         {
@@ -145,7 +147,7 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public Map<String, Integer> getQuantities()
     {
-        return productMap;
+        return quantities;
     }
 
     @Override
@@ -154,16 +156,16 @@ public class ProductHolderImpl implements ProductHolder
 
         int oldTotalValue = getTotalValue();
 
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(productMap);
+        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
         if (oldMap.isEmpty())
         {
             oldMap = null;
         }
 
-        productMap.clear();
+        quantities.clear();
 
-        pcs.firePropertyChange("quantities", oldMap, productMap);
-        pcs.firePropertyChange("empty", oldMap, productMap);
+        pcs.firePropertyChange("quantities", oldMap, quantities);
+        pcs.firePropertyChange("empty", oldMap, quantities);
         pcs.firePropertyChange("totalValue", oldTotalValue, getTotalValue());
 
     }
@@ -171,13 +173,13 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public boolean isEmpty()
     {
-        if (productMap == null)
+        if (quantities == null)
         {
             //there is no product holder
             return true;
         }
 
-        for (Map.Entry<String, Integer> iterProductMap : productMap.entrySet())
+        for (Map.Entry<String, Integer> iterProductMap : quantities.entrySet())
         {
             //if any of the products have a quantity
             if (iterProductMap.getValue() != 0)
@@ -198,7 +200,7 @@ public class ProductHolderImpl implements ProductHolder
         int totalCost = 0;
 
         // Go through the product map and add up the total costs
-        for (Map.Entry<String, Integer> iterProductMap : productMap.entrySet())
+        for (Map.Entry<String, Integer> iterProductMap : quantities.entrySet())
         {
             // get the product cost
             Product product = catalog.getProduct(iterProductMap.getKey());
@@ -227,6 +229,10 @@ public class ProductHolderImpl implements ProductHolder
     @Override
     public void setCatalog(Catalog catalog)
     {
+        if (catalog == null)
+        {
+            catalog = NULL_CATALOG;
+        }
         Catalog oldCatalog = this.catalog;
         this.catalog = catalog;
         pcs.firePropertyChange("catalog", oldCatalog, catalog);

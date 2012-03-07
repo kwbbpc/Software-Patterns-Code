@@ -12,7 +12,7 @@ public class CatalogImpl implements Catalog
 {
 
     PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    Map<String, Product> catalog = new HashMap<String, Product>();
+    Map<String, Product> products = new HashMap<String, Product>();
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener)
@@ -29,31 +29,29 @@ public class CatalogImpl implements Catalog
     @Override
     public void addProduct(Product product)
     {
-        Map<String, Product> oldCatalog = new HashMap<String, Product>(catalog);
-        catalog.put(product.getId(), product);
+        products.put(product.getId(), product);
         // fire the property change event
-        pcs.firePropertyChange("products", null, catalog);
+        pcs.firePropertyChange("products", null, products);
     }
 
     @Override
     public void removeProduct(String productId)
     {
-        Map<String, Product> oldCatalog = new HashMap<String, Product>(catalog);
-        catalog.remove(productId);
+        products.remove(productId);
         // fire the property change event
-        pcs.firePropertyChange("products", null, catalog);
+        pcs.firePropertyChange("products", null, products);
     }
 
     @Override
     public Product getProduct(String productId)
     {
-        return catalog.get(productId);
+        return products.get(productId);
     }
 
     @Override
     public Map<String, Product> getProducts()
     {
-        return catalog;
+        return products;
     }
 
 }

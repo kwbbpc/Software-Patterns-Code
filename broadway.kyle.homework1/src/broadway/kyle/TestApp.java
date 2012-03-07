@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.javadude.beans.Catalog;
 import com.javadude.beans.Client;
@@ -21,7 +22,6 @@ public class TestApp
     private static Client client;
 
     private static Product testProduct = new ProductImpl("TEST", "Test Product", 1, "A test product for testing");
-    private static Product testProduct2 = new ProductImpl("TEST2", "Test Product2", 2, "A second test product for testing");
 
     public static void TestIsEmpty()
     {
@@ -40,20 +40,6 @@ public class TestApp
 
     }
 
-    private static boolean CompareMaps(Map<String, Integer> m1, Map<String, Integer> m2)
-    {
-        boolean b = false;
-
-        for (Map.Entry<String, Integer> e : m1.entrySet())
-        {
-            b = e.getValue().equals(m2.get(e.getKey()));
-            if (!b)
-                break;
-        }
-
-        return b;
-    }
-
     public static void TestAddAndRemove()
     {
         Setup();
@@ -68,71 +54,115 @@ public class TestApp
         Map<String, Product> catalogComparable = new HashMap<String, Product>();
         catalogComparable.put("TEST", testProduct);
 
-        //Add the test product to the catalog and inventory
-        catalog.addProduct(testProduct);
-        inventory.addQuantity(testProduct.getId(), 3);
-        //Test for the product in the catalog and inventory
-        //        assert (catalog.getProducts().equals(catalogComparable));
-        assert (CompareMaps(inventory.getQuantities(), holderComparable3));
+        try
+        {
+            //Add the test product to the catalog and inventory
+            catalog.addProduct(testProduct);
+            inventory.addQuantity(testProduct.getId(), 3);
+            //Test for the product in the catalog and inventory
+            //        assert (catalog.getProducts().equals(catalogComparable));
+            assert (inventory.getQuantities().equals(holderComparable3));
 
-        //Add all 3 items to the cart.
-        client.addToCart(testProduct.getId(), 3);
-        //Verify
-        assert (CompareMaps(cart.getQuantities(), holderComparable3));
-        assert (inventory.isEmpty());
+            //Add all 3 items to the cart.
+            client.addToCart(testProduct.getId(), 3);
+            //Verify
+            assert (cart.getQuantities().equals(holderComparable3));
+            assert (inventory.isEmpty());
+            assert (!cart.isEmpty());
 
-        //Add a null item to the cart
-        client.addToCart(null, 3);
-        //Verify
-        assert (CompareMaps(cart.getQuantities(), holderComparable3));
-        assert (inventory.isEmpty());
+            //Add a null item to the cart
+            client.addToCart(null, 3);
+            //Verify
+            assert (cart.getQuantities().equals(holderComparable3));
+            assert (inventory.isEmpty());
 
-        /* Cannot add null quantities
-        * //Add a null quantity to the cart
-        * client.addToCart(testProduct.getId(), null);
-        * //Verify
-        * assert(cart.getQuantities().equals(holderComparable));
-        * assert(inventory.isEmpty());
-        */
+            //Add an item that doesn't exist
+            client.addToCart("DNE", 1);
+            //Verify
+            assert (cart.getQuantities().equals(holderComparable3));
+            assert (inventory.isEmpty());
 
-        //Add an item that doesn't exist
-        client.addToCart("DNE", 1);
-        //Verify
-        assert (CompareMaps(cart.getQuantities(), holderComparable3));
-        assert (inventory.isEmpty());
+            //            //Overdraw the inventory
+            //            client.addToCart(testProduct.getId(), 3);
+            //            //Should fail to add to cart
+            //            assert (cart.getQuantities().equals(holderComparable3));
+            //            assert (inventory.isEmpty());
 
-        //Overdraw the inventory
-        client.addToCart(testProduct.getId(), 3);
-        //Should fail to add to cart
-        assert (CompareMaps(cart.getQuantities(), holderComparable3));
-        assert (inventory.isEmpty());
+            //Verify the total value
+            assert (inventory.getTotalValue() == 0);
+            assert (cart.getTotalValue() == 3);
 
-        //Verify the total value
-        assert (inventory.getTotalValue() == 0);
-        assert (cart.getTotalValue() == 3);
+            //Remove 1 from the cart
+            client.removeFromCart(testProduct.getId(), 1);
+            assert (cart.getQuantities().equals(holderComparable2));
+            assert (inventory.getQuantities().equals(holderComparable1));
+            assert (catalog.getProducts().equals(catalogComparable));
+            assert (cart.getTotalValue() == 2);
+            assert (inventory.getTotalValue() == 1);
 
-        //Remove 1 from the cart
-        client.removeFromCart(testProduct.getId(), 1);
-        assert (CompareMaps(cart.getQuantities(), holderComparable2));
-        assert (CompareMaps(inventory.getQuantities(), holderComparable1));
-        assert (catalog.getProducts().equals(catalogComparable));
-        assert (cart.getTotalValue() == 2);
-        assert (inventory.getTotalValue() == 1);
+            //            //Remove too many items from the cart
+            //            client.removeFromCart(testProduct.getId(), 10);
+            //            assert (cart.isEmpty());
+            //            assert (inventory.getQuantities().equals(holderComparable3));
+            //            assert (inventory.getTotalValue() == 3);
+            //            assert (cart.getTotalValue() == 0);
 
-        //Remove too many items from the cart
-        client.removeFromCart(testProduct.getId(), 10);
-        assert (cart.isEmpty());
-        assert (CompareMaps(inventory.getQuantities(), holderComparable3));
-        assert (inventory.getTotalValue() == 3);
-        assert (cart.getTotalValue() == 0);
+            //Get the quantity of an item that doesn't exist
+            int quantity = cart.getQuantity("XXX");
+            assert (quantity == 0);
+            //Remove an item that doesn't exist
+            cart.removeQuantity("XXX", 100);
+            assert (cart.getQuantities().equals(holderComparable2));
+            assert (inventory.getQuantities().equals(holderComparable1));
+            assert (catalog.getProducts().equals(catalogComparable));
+            assert (cart.getTotalValue() == 2);
+            assert (inventory.getTotalValue() == 1);
 
-        assert (false);
+            //Create an empty product holder and test .isEmpty()
+            ProductHolder emptyHolder = new ProductHolderImpl();
+            emptyHolder.setCatalog(catalog);
+            emptyHolder.addQuantity("X", 5);
+            emptyHolder.addQuantity("XX", 0);
+            emptyHolder.removeQuantity("X", 5);
+            assert (emptyHolder.isEmpty());
 
+        }
+        catch (AssertionError e)
+        {
+            System.out.println("Test Failed!");
+            Print();
+
+            throw (e);
+        }
     }
 
-    private static boolean retFalse()
+    private static void Print()
     {
-        return false;
+        System.out.println("***********************************************************************");
+        System.out.println("************************CATALOG****************************************");
+        //Print the catalog
+        for (Entry<String, Product> iterProduct : catalog.getProducts().entrySet())
+        {
+            System.out.println("Id: [" + iterProduct.getKey() + "] \t | \t Product: [" + iterProduct.getValue().getName() + "]");
+        }
+
+        //Print the inventory
+        System.out.println("***********************************************************************");
+        System.out.println("************************INVENTORY**************************************");
+        for (Entry<String, Integer> iterProduct : inventory.getQuantities().entrySet())
+        {
+            System.out.println("Id: [" + iterProduct.getKey() + "] \t | \t Quantity: [" + iterProduct.getValue() + "]");
+        }
+        System.out.println("Total Value: " + inventory.getTotalValue());
+
+        //Print the cart
+        System.out.println("***********************************************************************");
+        System.out.println("************************CART*******************************************");
+        for (Entry<String, Integer> iterProduct : cart.getQuantities().entrySet())
+        {
+            System.out.println("Id: [" + iterProduct.getKey() + "] \t | \t Quantity: [" + iterProduct.getValue() + "]");
+        }
+        System.out.println("Total Value: " + cart.getTotalValue());
     }
 
     private static void Setup()
@@ -146,6 +176,20 @@ public class TestApp
         customerJohn.getBoughtItems().setCatalog(catalog);
 
         inventory.setCatalog(catalog);
+
+        // Create an ordered command listener that will call it's listeners in a
+        // Guaranteed order
+        CommandListenerOrdered orderedCommandListener = new CommandListenerOrdered();
+        // history must be called before the cart
+        orderedCommandListener.addCommandListener(new CommandListenerHistory(customerJohn.getBoughtItems(), cart));
+        // cart must be called after history
+        orderedCommandListener.addCommandListener(new CommandListenerCart(cart));
+
+        // register the ordered command lister with the client
+        client.addCommandListener(orderedCommandListener);
+        // register the remaining listeners
+        client.addCommandListener(new CommandListenerInventory(inventory));
+        client.addCommandListener(new CommandListenerPrint());
 
     }
 
@@ -162,6 +206,7 @@ public class TestApp
                 {
                     System.out.println("");
                     System.out.println("Customer history changed:");
+                    @SuppressWarnings("unchecked")
                     Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
                     for (Map.Entry<String, Integer> iterMap : map.entrySet())
                     {
@@ -196,6 +241,7 @@ public class TestApp
                 {
                     System.out.println("");
                     System.out.println("Customer cart changed:");
+                    @SuppressWarnings("unchecked")
                     Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
                     for (Map.Entry<String, Integer> iterMap : map.entrySet())
                     {
@@ -221,6 +267,7 @@ public class TestApp
                 {
                     System.out.println("");
                     System.out.println("Inventory changed:");
+                    @SuppressWarnings("unchecked")
                     Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
                     for (Map.Entry<String, Integer> iterMap : map.entrySet())
                     {
@@ -290,20 +337,6 @@ public class TestApp
         inventory.addQuantity(product8.getId(), 5841);
         inventory.addQuantity(product9.getId(), 589);
         inventory.addQuantity(product0.getId(), 1);
-
-        // Create an ordered command listener that will call it's listeners in a
-        // Guaranteed order
-        CommandListenerOrdered orderedCommandListener = new CommandListenerOrdered();
-        // history must be called before the cart
-        orderedCommandListener.addCommandListener(new CommandListenerHistory(customerJohn.getBoughtItems(), cart));
-        // cart must be called after history
-        orderedCommandListener.addCommandListener(new CommandListenerCart(cart));
-
-        // register the ordered command lister with the client
-        client.addCommandListener(orderedCommandListener);
-        // register the remaining listeners
-        client.addCommandListener(new CommandListenerInventory(inventory));
-        client.addCommandListener(new CommandListenerPrint());
 
         client.addToCart("6", 19);
         client.removeFromCart("6", 2);
