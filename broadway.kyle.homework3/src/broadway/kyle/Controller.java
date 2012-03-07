@@ -55,7 +55,7 @@ public class Controller extends HttpServlet
         //Create the different strategies
         strategyMap.put("addToCart", new AddToCartAction(client, commandManager));
         strategyMap.put("removeFromCart", new RemoveFromCartAction(client, commandManager));
-        strategyMap.put("purchase", new PurchaseAction(client, commandManager, cart));
+        strategyMap.put("purchaseCart", new PurchaseAction(client, commandManager, cart));
         strategyMap.put("undo", new UndoAction(commandManager));
         strategyMap.put("redo", new RedoAction(commandManager));
 
