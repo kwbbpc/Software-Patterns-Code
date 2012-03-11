@@ -8,3 +8,10 @@
 1331484340869	Rename type 'From'
 1331488833578	Rename package 'broadway.kyle.html'
 1331488841322	Delete element
+1331494205413	Copy compilation units
+1331494562060	Rename type 'PrePostVisit'
+1331494623901	Rename type 'Renderer'
+1331496212992	Rename field 'toRenderSet'
+1331502191793	Rename package 'TestHtmlRendering'
+1331502701693	Rename type 'App'
+1331502709252	Rename type 'App'
