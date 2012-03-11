@@ -1,0 +1,25 @@
+package broadway.kyle.html;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
+public class App
+{
+
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        PrintStream stream = new PrintStream(new FileOutputStream("test.html"));
+
+        HTML html = new HTML();
+
+        html.//
+        add(new Paragraph().//
+        add("This is text for the paragraph").//
+        add(new Emphasis("This is emphasized")).//
+        add("This is not emphasized"));//
+
+        html.render(stream);
+
+    }
+}

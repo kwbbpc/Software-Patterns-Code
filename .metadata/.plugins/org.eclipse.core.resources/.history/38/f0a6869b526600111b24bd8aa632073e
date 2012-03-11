@@ -1,0 +1,10 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+public interface ActionStrategy
+{
+
+    void go(Map<String, String[]> strategy);
+
+}

@@ -1,0 +1,10 @@
+package broadway.kyle.html;
+
+public interface RenderText
+{
+
+    void preRender(TagGeneric tag);
+
+    void postRender(TagGeneric tag);
+
+}

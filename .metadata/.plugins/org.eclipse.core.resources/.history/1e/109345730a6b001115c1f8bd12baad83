@@ -1,0 +1,29 @@
+package broadway.kyle.html;
+
+import java.io.PrintStream;
+
+public abstract class Tag implements Renderer
+{
+
+    public Tag()
+    {
+    }
+
+    public Tag(String string)
+    {
+    }
+
+    @Override
+    public void render(PrintStream stream)
+    {
+    }
+
+    public void add(Renderer renderer)
+    {
+    }
+
+    public void add(String string)
+    {
+    }
+
+}

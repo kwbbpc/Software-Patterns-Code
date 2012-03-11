@@ -1,0 +1,24 @@
+package broadway.kyle.html;
+
+public class CompositeTag extends GenericTag
+{
+    public CompositeTag()
+    {
+
+    }
+
+    public CompositeTag(String text)
+    {
+        this.text = new Text(text);
+    }
+
+    public void add(String text)
+    {
+        this.text = new Text(text);
+    }
+
+    public void add(Renderer toRender)
+    {
+        this.toRenderSet.add(toRender);
+    }
+}

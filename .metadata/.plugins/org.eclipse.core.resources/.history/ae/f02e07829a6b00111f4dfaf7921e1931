@@ -1,0 +1,35 @@
+package broadway.kyle.html;
+
+public class Form extends TagComposite
+{
+
+    @Override
+    protected void initTags()
+    {
+        this.startTag = "<form>";
+        this.endTag = "</form>";
+    }
+
+    public Form()
+    {
+        initTags();
+    }
+
+    /**
+     * @param text
+     * the text inside the anchor
+     * @param href
+     * the href to link to.  set to null if using name instead
+     * @param name
+     * the name to link to.  set to null if using href instead
+     */
+    public Form(String url)
+    {
+        initTags();
+
+        if (url != null)
+            this.startTag = "<form action='" + url + "' >";
+
+    }
+
+}

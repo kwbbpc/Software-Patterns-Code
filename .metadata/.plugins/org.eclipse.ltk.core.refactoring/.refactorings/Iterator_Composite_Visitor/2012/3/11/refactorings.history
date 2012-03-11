@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;StuffToDo.java&apos; to &apos;broadway.kyle.homework4/src/broadway.kyle.html&apos;&#x0D;&#x0A;- Original project: &apos;Iterator_Composite_Visitor&apos;&#x0D;&#x0A;- Destination element: &apos;broadway.kyle.homework4/src/broadway.kyle.html&apos;&#x0D;&#x0A;- Original element: &apos;StuffToDo.java&apos;" description="Copy file" destination="=broadway.kyle.homework4/src&lt;broadway.kyle.html" element1="CompositeStrategy2/src/com/javadude/composite/StuffToDo.java" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1331477350991" units="0" version="1.0"/>
+</session>

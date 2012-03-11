@@ -1,0 +1,17 @@
+package broadway.kyle.html;
+
+import java.io.PrintStream;
+
+public class GenericTag implements Renderer
+{
+    
+    protected Set<Text> textToRender;
+
+    @Override
+    public void render(PrintStream stream)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+}

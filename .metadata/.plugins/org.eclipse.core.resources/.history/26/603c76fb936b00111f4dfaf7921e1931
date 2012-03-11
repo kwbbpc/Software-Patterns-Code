@@ -1,0 +1,17 @@
+package broadway.kyle.html;
+
+public class RenderHtmlTag implements RenderText {
+
+	@Override
+	public void preRender(TagGeneric tag) 
+	{
+	}
+
+	@Override
+	public void postRender(TagGeneric tag) 
+	{
+		System.out.println(e.getName() + " writes an article on " + e.getSpecialty());
+	}
+
+
+}

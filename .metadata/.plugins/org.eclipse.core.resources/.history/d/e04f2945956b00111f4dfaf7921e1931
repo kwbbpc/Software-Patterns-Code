@@ -1,0 +1,44 @@
+package broadway.kyle.html;
+
+public class Anchor extends TagComposite
+{
+
+    private void initTags()
+    {
+        this.startTag = "<a>";
+        this.endTag = "</a>";
+    }
+
+    public Anchor()
+    {
+        initTags();
+    }
+
+    /**
+     * @param text
+     * the text inside the anchor
+     * @param href
+     * the href to link to.  set to null if using name instead
+     * @param name
+     * the name to link to.  set to null if using href instead
+     */
+    public Anchor(String text, String href, String name)
+    {
+        initTags();
+
+        if (href != null && name != null)
+        {
+            //attempt to use both href and name at the same time
+            assert (false);
+        }
+
+        this.text = new Text(text);
+
+        if (href != null)
+            this.startTag = "<a " + href + ">";
+        else if (name != null)
+            this.startTag = "<a " + name + ">";
+
+    }
+
+}

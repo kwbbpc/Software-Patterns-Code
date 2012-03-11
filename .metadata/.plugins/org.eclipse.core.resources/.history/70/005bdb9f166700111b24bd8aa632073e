@@ -1,0 +1,36 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+import com.javadude.beans.Client;
+import com.javadude.command.UndoManager;
+
+public class RemoveFromCartAction implements ActionStrategy
+{
+
+    private Client client;
+    private UndoManager commandManager;
+
+    public RemoveFromCartAction(Client client, UndoManager undoManager)
+    {
+        super();
+        this.client = client;
+        this.commandManager = commandManager;
+    }
+
+    @Override
+    public void go(Map<String, String[]> parameters)
+    {
+        //Read the itemId
+        String productId = (String) ParameterParser.find(ParameterParser.itemId, parameters);
+
+        //Read the quantity
+        Integer quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
+
+        //Create the RemoveFromCartCommand
+
+        //Have the command manager execute the command
+
+    }
+
+}

@@ -1,0 +1,29 @@
+<p>Add to cart</p>
+<form action="controller">
+  <input type="hidden" name="action" value="addToCart" />
+  <p>Item Id <input type="text" name="itemId" /></p>
+  <p>Quantity <input type="text" name="quantity" /></p>
+  <p><input type="submit" value="Add to Cart" /></p>
+</form>
+
+<p>Remove from cart</p>
+<form action="controller">
+  <input type="hidden" name="action" value="removeFromCart" />
+  <p>Item Id <input type="text" name="itemId" /></p>
+  <p>Quantity <input type="text" name="quantity" /></p>
+  <p><input type="submit" value="Remove from Cart" /></p>
+</form>
+
+<p>General Commands</p>
+<form action="controller">
+  <input type="hidden" name="action" value="purchaseCart" />
+  <input type="submit" value="Purchase Cart" />
+</form>
+<form action="controller">
+  <input type="hidden" name="action" value="undo" />
+  <input type="submit" value="Undo" />
+</form>
+<form action="controller">
+  <input type="hidden" name="action" value="redo" />
+  <input type="submit" value="Redo" />
+</form>

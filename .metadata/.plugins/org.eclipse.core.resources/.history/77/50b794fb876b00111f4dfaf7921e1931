@@ -1,0 +1,18 @@
+package broadway.kyle.html;
+
+import java.io.PrintStream;
+
+public class Text_NULL extends Text
+{
+    public Text_NULL()
+    {    }
+
+    @Override
+    public void render(PrintStream stream)
+    {
+        //Attempt to print out null text
+        assert (false);
+        System.out.println("");
+    }
+
+}

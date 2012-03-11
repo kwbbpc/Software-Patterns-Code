@@ -1,0 +1,7 @@
+1330897998898	Rename package 'template_strategy'
+1330904169092	Rename type 'Controlled'
+1330905784872	Rename method 'getItemId'
+1330905993092	Rename field 'undoManager'
+1330906092682	Rename method 'getItemQuantity'
+1330991420647	Rename type 'PurchaseCartAction'
+1331095645780	Delete element

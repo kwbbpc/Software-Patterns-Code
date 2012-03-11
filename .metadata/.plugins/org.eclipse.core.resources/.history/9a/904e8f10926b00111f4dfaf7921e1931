@@ -1,0 +1,26 @@
+package broadway.kyle.html;
+
+public class Anchor extends TagComposite
+{
+
+    private String href;
+    private String startTag = "<a>";
+    private String endTag = "</a>";
+    private Text text = NULL_TEXT;
+
+    public Anchor()
+    {
+
+    }
+
+    public Anchor(String text, String href)
+    {
+        this.text = new Text(text);
+        if(href != null)
+            this.href = href;
+        else
+            this.href = "";
+        
+    }
+
+}

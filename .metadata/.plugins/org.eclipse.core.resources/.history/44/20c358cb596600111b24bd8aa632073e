@@ -1,0 +1,20 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+public class ParameterParser
+{
+
+    public ParameterParser()
+    {
+
+    }
+
+    Object parseParameters(Map<String, String[]> params)
+    {
+
+        
+        return null;
+    }
+
+}

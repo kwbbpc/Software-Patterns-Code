@@ -1,0 +1,13 @@
+package broadway.kyle.html;
+
+public class TagNonComposite extends TagGeneric
+{
+
+    @Override
+    protected void initTags()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+}

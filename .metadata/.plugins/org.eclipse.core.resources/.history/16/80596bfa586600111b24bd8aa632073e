@@ -1,0 +1,97 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+import com.javadude.beans.Client;
+import com.javadude.beans.Customer;
+import com.javadude.command.Command;
+import com.javadude.command.UndoManager;
+
+/**
+ * @author KBroadway
+ *
+ *  This action strategy adds an item and quantity to
+ *  the cart. 
+ *
+ *
+ */
+public class AddToCartAction implements ActionStrategy
+{
+
+    private Client client;
+    private Customer customer;
+    private UndoManager commandManager;
+
+    /**
+     * Constructor for an add to cart action
+     * 
+     */
+    public AddToCartAction(Client client, UndoManager undoManager,
+            Customer customer)
+    {
+        this.client = client;
+        this.commandManager = undoManager;
+        this.customer = customer;
+
+    }
+
+    /* (non-Javadoc)
+     * @see broadway.kyle.ActionStrategy#go(java.util.Map)
+     * 
+     * Add the item quantity to the cart
+     * 
+     */
+    @Override
+    public void go(Map<String, String[]> parameters)
+    {
+        //Read the item id
+        String productId = getProductId(parameters);
+
+        //Read the quantity
+        Integer quantity = getProductQuantity(parameters);
+
+        if (client != null)
+        {
+            //Create the add to cart command
+            Command addToCartCommand = new AddToCartCommand(client, productId, quantity);
+
+            //pass to the command manager for execution
+            commandManager.execute(addToCartCommand);
+        }
+        else
+        {
+            System.out.println("Failed to add to cart: No client exists.");
+        }
+
+    }
+
+    /**
+     * 
+     * parses the product ID out from the parameters
+     * 
+     * @param parameters
+     * The parameters given from the request
+     * @return
+     * The product id string
+     */
+    private String getProductId(Map<String, String[]> parameters)
+    {
+
+        return null;
+    }
+
+    /**
+     * parses the product quantity from the parameters 
+     * @param parameters
+     * The parameters given from the request
+     * @return
+     * The integer value quantity
+     */
+    private Integer getProductQuantity(Map<String, String[]> parameters)
+    {
+
+        return 0;
+
+    }
+
+}

@@ -1,0 +1,23 @@
+package broadway.kyle.html;
+
+import java.io.PrintStream;
+
+public class Body extends TagComposite
+{
+
+    @Override
+    public void render(PrintStream stream)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void initTags()
+    {
+        startTag = "<body>";
+        endTag = "<body>";
+        
+    }
+
+}

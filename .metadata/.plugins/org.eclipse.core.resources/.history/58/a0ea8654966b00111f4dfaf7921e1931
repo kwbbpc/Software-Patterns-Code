@@ -1,0 +1,7 @@
+package broadway.kyle.html;
+
+public abstract class TagNonComposite extends TagGeneric
+{
+
+
+}

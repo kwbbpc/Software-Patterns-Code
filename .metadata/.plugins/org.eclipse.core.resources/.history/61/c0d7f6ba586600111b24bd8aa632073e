@@ -1,0 +1,8 @@
+package broadway.kyle;
+
+import com.javadude.beans.Client;
+
+public class ClientNull implements Client
+{
+
+}

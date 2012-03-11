@@ -1,0 +1,15 @@
+package broadway.kyle.html;
+
+import java.io.PrintStream;
+
+public static class NULL_TEXT implements Renderer
+{
+    @Override
+    public void render(PrintStream stream)
+    {
+        //Attempt to print out null text
+        assert (false);
+        System.out.println("");
+    }
+
+}

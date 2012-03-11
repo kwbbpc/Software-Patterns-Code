@@ -1,0 +1,29 @@
+package broadway.kyle.html;
+
+
+public class Body extends TagComposite
+{
+
+    @Override
+    protected void initTags()
+    {
+        startTag = "<body>";
+        endTag = "<body>";
+    }
+    
+    public Body()
+    {
+        initTags();
+    }
+
+
+    public Body(String text)
+    {
+        initTags();
+
+        //Create the text to write and add as a child to render
+        add(new Text(text));
+
+    }
+
+}

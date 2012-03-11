@@ -1,0 +1,15 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+public class UndoAction implements ActionStrategy
+{
+
+    @Override
+    public void go(Map<String, String[]> parameters)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+}

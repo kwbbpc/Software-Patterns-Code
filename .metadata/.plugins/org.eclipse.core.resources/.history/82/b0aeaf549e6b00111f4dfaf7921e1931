@@ -1,0 +1,21 @@
+package broadway.kyle.html;
+
+/**
+ * @author KBroadway
+ * This type of tag allows a 
+ * public add to the children to render.
+ *
+ *
+ */
+public abstract class TagComposite extends TagGeneric
+{
+    public void add(String text)
+    {
+        this.text = new Text(text);
+    }
+
+    public void add(Renderer toRender)
+    {
+        this.toRenderSet.add(toRender);
+    }
+}

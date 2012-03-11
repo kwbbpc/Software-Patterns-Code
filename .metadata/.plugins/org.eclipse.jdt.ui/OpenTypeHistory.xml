@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{ProductHolder.java[ProductHolder" modifiers="513" timestamp="1329014289265"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{Client.java[Client" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{Product.java[Product" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{PropertyChangeNotifier.java[PropertyChangeNotifier" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=Model-View-Controller_Command/C:\/Program Files\/Java\/jdk1.6.0_30\/jre\/lib\/rt.jar&lt;javax.swing(JPanel.class[JPanel" modifiers="33" timestamp="1328993887153"/>
+<typeInfo handle="=Model-View-Controller_Command/src&lt;sample{Command.java[Command" modifiers="1025" timestamp="1330210813709"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{Customer.java[Customer" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{CommandListener.java[CommandListener" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=com.javadude.hw2.starter/src&lt;com.javadude.command{Command.java[Command" modifiers="513" timestamp="1252259418000"/>
+<typeInfo handle="=com.javadude.hw2.starter/src&lt;com.javadude.command{UndoManager.java[UndoManager" modifiers="513" timestamp="1252259418000"/>
+<typeInfo handle="=Strategy_Template/src&lt;com.broadway.tms{Walker.java[Walker" modifiers="1025" timestamp="1330803514713"/>
+<typeInfo handle="=Strategy_Template/C:\/Program Files\/Java\/jdk1.6.0_30\/jre\/lib\/rt.jar&lt;javax.swing(Spring$SumSpring.class[SumSpring" modifiers="10" timestamp="1328993887153"/>
+<typeInfo handle="=Strategy_Template/src&lt;com.broadway.tms{SumWalker.java[SumWalker" modifiers="1" timestamp="1330803065297"/>
+<typeInfo handle="=Strategy_Template/src&lt;com.broadway.tms{SomethingDoer.java[SomethingDoer" modifiers="513" timestamp="1330803509523"/>
+<typeInfo handle="=broadway.kyle.homework3/src&lt;broadway.kyle{ActionStrategy.java[ActionStrategy" modifiers="513" timestamp="1330987882291"/>
+<typeInfo handle="=com.javadude.hw1.starter/src&lt;com.javadude.beans{Catalog.java[Catalog" modifiers="513" timestamp="1252257768000"/>
+<typeInfo handle="=broadway.kyle.homework4/C:\/Program Files\/Java\/jdk1.6.0_30\/jre\/lib\/rt.jar&lt;java.awt.image(RenderedImage.class[RenderedImage" modifiers="1537" timestamp="1328993887153"/>
+<typeInfo handle="=broadway.kyle.homework4/C:\/Program Files\/Java\/jdk1.6.0_30\/jre\/lib\/rt.jar&lt;java.awt.image.renderable(RenderedImageFactory.class[RenderedImageFactory" modifiers="1537" timestamp="1328993887153"/>
+<typeInfo handle="=broadway.kyle.homework4/src&lt;broadway.kyle.html{Renderer.java[Renderer" modifiers="513" timestamp="1331422529094"/>
+</typeInfoHistroy>

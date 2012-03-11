@@ -1,0 +1,15 @@
+package broadway.kyle.html;
+
+import java.io.*;
+import java.io.PrintStream;
+
+public class App
+{
+
+    public static void main(String[] args)
+    {
+        PrintStream stream = new PrintStream(java.io.OutputStream out);
+        Anchor a = new Anchor("test", "test", null);
+        a.render(stream);
+    }
+}

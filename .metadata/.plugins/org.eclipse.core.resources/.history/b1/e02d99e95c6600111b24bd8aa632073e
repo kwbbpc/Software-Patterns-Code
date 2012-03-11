@@ -1,0 +1,37 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+/**
+ * @author KBroadway
+ *
+ *  This class handles the parsing of the parameter map from a 
+ *  request.
+ *
+ */
+public class ParameterParser
+{
+
+    /**
+     * Parses through the given map of parameters and returns the value
+     * corresponding to the paramToFind.
+     * 
+     * @param paramToFind
+     * The particular parameter you're interested in
+     * @param params
+     * The parameters map from a request
+     * @return
+     * The value corresponding to paramToFind
+     */
+    public static Object parseParameters(String paramToFind, Map<String, String[]> params)
+    {
+
+        if (paramToFind.equals("itemId"))
+            parseItemId(params);
+        else if (paramToFind.equals("quantity"))
+            parseQuantity(params);
+
+        return null;
+    }
+
+}

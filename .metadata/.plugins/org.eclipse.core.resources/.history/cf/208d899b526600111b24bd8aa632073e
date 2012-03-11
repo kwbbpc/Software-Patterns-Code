@@ -1,0 +1,20 @@
+package broadway.kyle;
+
+import java.util.Map;
+
+/**
+ * @author KBroadway
+ *
+ */
+public interface ActionStrategy
+{
+
+    
+    /**
+     * Execute the action strategy's action
+     * 
+     * @param strategy
+     */
+    void go(Map<String, String[]> strategy);
+
+}
