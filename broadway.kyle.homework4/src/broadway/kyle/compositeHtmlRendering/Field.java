@@ -1,8 +1,15 @@
 package broadway.kyle.compositeHtmlRendering;
 
+import java.io.PrintStream;
+
 
 public class Field extends TagNonComposite
 {
+    
+    private String name;
+    private String label;
+    private String value;
+    
     @Override
     protected void initTags()
     {
@@ -25,10 +32,18 @@ public class Field extends TagNonComposite
     public Field(String name, String label, String value)
     {
         initTags();
-
-        //Create the text to write and add as a child to render
-        this.toRenderSet.add(new Text(label + ": <input type=text name='" + name + "' value='" + value + "' />"));
-
+        
+        this.name = name;
+        this.label = label;
+        this.value = value;
+    }
+    
+    @Override
+    public void render(PrintStream stream)
+    {
+        stream.print(startTag);
+        stream.print(label + ": <input type=text name='" + name + "' value='" + value + "' />");
+        stream.print(endTag);
     }
 
 }

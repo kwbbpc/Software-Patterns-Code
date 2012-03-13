@@ -1,8 +1,0 @@
-package broadway.kyle;
-
-public interface ActionStrategy
-{
-    
-    void go(Map<String, String[]> strategy);
-
-}

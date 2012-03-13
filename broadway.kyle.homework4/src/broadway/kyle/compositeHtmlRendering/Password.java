@@ -1,8 +1,13 @@
 package broadway.kyle.compositeHtmlRendering;
 
+import java.io.PrintStream;
+
 public class Password extends TagNonComposite
 {
 
+    private String name;
+    private String label;
+    
     @Override
     protected void initTags()
     {
@@ -25,10 +30,18 @@ public class Password extends TagNonComposite
     public Password(String name, String label)
     {
         initTags();
+        
+        this.name = name;
+        this.label = label;
 
-        //Create the text to write and add as a child to render
-        this.toRenderSet.add(new Text(label + ": <input type='password' name='" + name + "' />"));
-
+    }
+    
+    @Override
+    public void render(PrintStream stream)
+    {
+        stream.print(startTag);
+        stream.print(label + ": <input type='password' name='" + name + "' />");
+        stream.print(endTag);
     }
 
 }
