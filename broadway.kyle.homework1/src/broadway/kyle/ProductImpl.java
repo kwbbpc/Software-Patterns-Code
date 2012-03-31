@@ -13,7 +13,7 @@ public class ProductImpl implements Product
     private String name;
     private String description;
 
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private PropertyChangeSupport pcs = FactoryPropertyChange.createPropertyChangeSupport(this);
 
     public void addPropertyChangeListener(PropertyChangeListener listener)
     {

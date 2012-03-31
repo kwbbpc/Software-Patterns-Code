@@ -1,6 +1,5 @@
 package broadway.kyle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ import com.javadude.beans.CommandListener;
 public class ClientImpl implements Client
 {
 
-    private List<CommandListener> listeners = new ArrayList<CommandListener>();
+    private List<CommandListener> listeners = FactoryCollection.createArraylist();
 
     @Override
     public void addCommandListener(CommandListener commandListener)

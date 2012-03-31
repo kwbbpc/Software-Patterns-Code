@@ -10,7 +10,7 @@ public class CommandListenerInventory implements CommandListener
 
     ProductHolder inventory;
 
-    public CommandListenerInventory(ProductHolder inventory)
+    CommandListenerInventory(ProductHolder inventory)
     {
         this.inventory = inventory;
     }

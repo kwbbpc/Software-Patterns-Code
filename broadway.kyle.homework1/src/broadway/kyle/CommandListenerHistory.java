@@ -15,7 +15,7 @@ public class CommandListenerHistory implements CommandListener
      * @param history
      * @param cart
      */
-    public CommandListenerHistory(ProductHolder history, ProductHolder cart)
+    CommandListenerHistory(ProductHolder history, ProductHolder cart)
     {
         this.history = history;
         this.cart = cart;

@@ -20,11 +20,11 @@ public class CustomerImpl implements Customer
     private String password;
 
     // product holders
-    private ProductHolder cart = new ProductHolderImpl();
-    private ProductHolder boughtItems = new ProductHolderImpl();
+    private ProductHolder cart = FactoryHomework1.createProductHolder();
+    private ProductHolder boughtItems = FactoryHomework1.createProductHolder();
 
     // property change support
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private PropertyChangeSupport pcs = FactoryPropertyChange.createPropertyChangeSupport(this);
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener)
@@ -48,7 +48,7 @@ public class CustomerImpl implements Customer
      * @param phone
      * @param password
      */
-    public CustomerImpl(String id, String name, String street, String city,
+    CustomerImpl(String id, String name, String street, String city,
             String state, String zip, String phone, String password)
     {
         this.id = id;

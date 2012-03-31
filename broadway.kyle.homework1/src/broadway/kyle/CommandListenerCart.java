@@ -11,7 +11,7 @@ public class CommandListenerCart implements CommandListener
     // The customer who this command listener is managing
     private ProductHolder cart;
 
-    public CommandListenerCart(ProductHolder cart)
+    CommandListenerCart(ProductHolder cart)
     {
         this.cart = cart;
     }

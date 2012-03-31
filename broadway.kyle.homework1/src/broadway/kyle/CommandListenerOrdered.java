@@ -1,6 +1,5 @@
 package broadway.kyle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class CommandListenerOrdered implements CommandListener
 
     // The list of listeners must remain a list, or other collection that
     // maintains order.
-    private List<CommandListener> listeners = new ArrayList<CommandListener>();
+    private List<CommandListener> listeners = FactoryCollection.createArraylist();
 
     public void addCommandListener(CommandListener commandListener)
     {

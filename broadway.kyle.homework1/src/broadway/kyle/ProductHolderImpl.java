@@ -2,7 +2,6 @@ package broadway.kyle;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.javadude.beans.Catalog;
@@ -13,14 +12,14 @@ public class ProductHolderImpl implements ProductHolder
 {
 
     // Quantity of products, keyed by productId
-    private Map<String, Integer> quantities = new HashMap<String, Integer>();
+    private Map<String, Integer> quantities = FactoryCollection.createMap();
 
     // Catalog of products in the holder
-    private static Catalog NULL_CATALOG = new CatalogNull();
+    private static Catalog NULL_CATALOG = FactoryHomework1.createCatalogNull();
     private Catalog catalog = NULL_CATALOG;
 
     // Property Change Support
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private PropertyChangeSupport pcs = FactoryPropertyChange.createPropertyChangeSupport(this);
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener)
@@ -39,7 +38,7 @@ public class ProductHolderImpl implements ProductHolder
     {
 
         int oldTotalValue = getTotalValue();
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
+        Map<String, Integer> oldMap = FactoryCollection.createMap(quantities);
 
         // Make sure the product to be added is in the catalog
         if (catalog.getProduct(productId) == null)
@@ -81,7 +80,8 @@ public class ProductHolderImpl implements ProductHolder
     public void removeQuantity(String productId, int quantityToRemove)
     {
 
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
+        Map<String, Integer> oldMap = FactoryCollection.createMap(quantities);
+
         int oldTotalValue = getTotalValue();
 
         int newQuantity = 0;
@@ -156,7 +156,7 @@ public class ProductHolderImpl implements ProductHolder
 
         int oldTotalValue = getTotalValue();
 
-        Map<String, Integer> oldMap = new HashMap<String, Integer>(quantities);
+        Map<String, Integer> oldMap = FactoryCollection.createMap(quantities);
         if (oldMap.isEmpty())
         {
             oldMap = null;

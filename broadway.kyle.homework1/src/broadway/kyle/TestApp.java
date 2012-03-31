@@ -1,8 +1,5 @@
 package broadway.kyle;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -21,7 +18,7 @@ public class TestApp
     private static ProductHolder inventory;
     private static Client client;
 
-    private static Product testProduct = new ProductImpl("TEST", "Test Product", 1, "A test product for testing");
+    private static Product testProduct = FactoryHomework1.createProduct("TEST", "Test Product", 1, "A test product for testing");
 
     public static void TestIsEmpty()
     {
@@ -45,13 +42,13 @@ public class TestApp
         Setup();
 
         //create the compare map
-        Map<String, Integer> holderComparable3 = new HashMap<String, Integer>();
+        Map<String, Integer> holderComparable3 = FactoryCollection.createMap();
         holderComparable3.put("TEST", 3);
-        Map<String, Integer> holderComparable2 = new HashMap<String, Integer>();
+        Map<String, Integer> holderComparable2 = FactoryCollection.createMap();
         holderComparable2.put("TEST", 2);
-        Map<String, Integer> holderComparable1 = new HashMap<String, Integer>();
+        Map<String, Integer> holderComparable1 = FactoryCollection.createMap();
         holderComparable1.put("TEST", 1);
-        Map<String, Product> catalogComparable = new HashMap<String, Product>();
+        Map<String, Product> catalogComparable = FactoryCollection.createMap();
         catalogComparable.put("TEST", testProduct);
 
         try
@@ -119,7 +116,7 @@ public class TestApp
             assert (inventory.getTotalValue() == 1);
 
             //Create an empty product holder and test .isEmpty()
-            ProductHolder emptyHolder = new ProductHolderImpl();
+            ProductHolder emptyHolder = FactoryHomework1.createProductHolder();
             emptyHolder.setCatalog(catalog);
             emptyHolder.addQuantity("X", 5);
             emptyHolder.addQuantity("XX", 0);
@@ -179,119 +176,40 @@ public class TestApp
 
         // Create an ordered command listener that will call it's listeners in a
         // Guaranteed order
-        CommandListenerOrdered orderedCommandListener = new CommandListenerOrdered();
+        CommandListenerOrdered orderedCommandListener = FactoryHomework1.createCommandListenerOrdered();
         // history must be called before the cart
-        orderedCommandListener.addCommandListener(new CommandListenerHistory(customerJohn.getBoughtItems(), cart));
+        orderedCommandListener.addCommandListener(FactoryHomework1.createCommandListenerHistory(customerJohn.getBoughtItems(), cart));
         // cart must be called after history
-        orderedCommandListener.addCommandListener(new CommandListenerCart(cart));
+        orderedCommandListener.addCommandListener(FactoryHomework1.createCommandListenerCart(cart));
 
         // register the ordered command lister with the client
         client.addCommandListener(orderedCommandListener);
         // register the remaining listeners
-        client.addCommandListener(new CommandListenerInventory(inventory));
-        client.addCommandListener(new CommandListenerPrint());
+        client.addCommandListener(FactoryHomework1.createCommandListenerInventory(inventory));
+        client.addCommandListener(FactoryHomework1.createCommandListenerPrint());
 
     }
 
     private static void AddPropertyChangeListeners()
     {
 
-        customerJohn.getBoughtItems().addPropertyChangeListener(new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                // If the change was to the history
-                if (evt.getPropertyName() == "quantities")
-                {
-                    System.out.println("");
-                    System.out.println("Customer history changed:");
-                    @SuppressWarnings("unchecked")
-                    Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
-                    for (Map.Entry<String, Integer> iterMap : map.entrySet())
-                    {
-                        System.out.println("Product [" + iterMap.getKey() + "] x " + iterMap.getValue());
-                    }
-                }
-                // If the change was to anything else, just print the change.
-                else
-                {
-                    System.out.println("");
-                    System.out.println("History change recorded for " + evt.getPropertyName() + ": " + evt.getNewValue());
-                }
-            }
-        });
+        customerJohn.getBoughtItems().addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionHistory()));
 
-        catalog.addPropertyChangeListener(new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                System.out.println("Catalog changed: " + evt.getNewValue());
-            }
-        });
+        catalog.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCatalog()));
 
-        cart.addPropertyChangeListener(new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                // If the change was to the cart
-                if (evt.getPropertyName() == "quantities")
-                {
-                    System.out.println("");
-                    System.out.println("Customer cart changed:");
-                    @SuppressWarnings("unchecked")
-                    Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
-                    for (Map.Entry<String, Integer> iterMap : map.entrySet())
-                    {
-                        System.out.println("Product [" + iterMap.getKey() + "] x " + iterMap.getValue());
-                    }
-                }
-                // If the change was to anything else, just print the change.
-                else
-                {
-                    System.out.println("");
-                    System.out.println("Cart change recorded for " + evt.getPropertyName() + ": " + evt.getNewValue());
-                }
-            }
-        });
+        cart.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCart()));
 
-        inventory.addPropertyChangeListener(new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                // If the change was to the history
-                if (evt.getPropertyName() == "quantities")
-                {
-                    System.out.println("");
-                    System.out.println("Inventory changed:");
-                    @SuppressWarnings("unchecked")
-                    Map<String, Integer> map = (HashMap<String, Integer>) evt.getNewValue();
-                    for (Map.Entry<String, Integer> iterMap : map.entrySet())
-                    {
-                        System.out.println("Product [" + iterMap.getKey() + "] x " + iterMap.getValue());
-                    }
-                }
-                // If the change was to anything else, just print the change.
-                else
-                {
-                    System.out.println("");
-                    System.out.println("Inventory change recorded for " + evt.getPropertyName() + ": " + evt.getNewValue());
-                }
-            }
-        });
+        inventory.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionInventory()));
 
     }
 
     private static void ClearMembers()
     {
-        customerJohn = new CustomerImpl("45681354", "John", "11 Street", "Germantown", "Maryland", "20874", "555-5555", "l3tm31n");
-        catalog = new CatalogImpl();
-        cart = new ProductHolderImpl();
-        inventory = new ProductHolderImpl();
-        client = new ClientImpl();
+        customerJohn = FactoryHomework1.createCustomer("45681354", "John", "11 Street", "Germantown", "Maryland", "20874", "555-5555", "l3tm31n");
+        catalog = FactoryHomework1.createCatalog();
+        cart = FactoryHomework1.createProductHolder();
+        inventory = FactoryHomework1.createProductHolder();
+        client = FactoryHomework1.createClient();
     }
 
     public static void main(String args[])
@@ -305,16 +223,16 @@ public class TestApp
 
         AddPropertyChangeListeners();
 
-        Product product1 = new ProductImpl("1", "Product 1", 100, "The first product");
-        Product product2 = new ProductImpl("2", "Product 2", 200, "The second product");
-        Product product3 = new ProductImpl("3", "Product 3", 300, "The third product");
-        Product product4 = new ProductImpl("4", "Product 4", 400, "The fourth product");
-        Product product5 = new ProductImpl("5", "Product 5", 500, "The fifth product");
-        Product product6 = new ProductImpl("6", "Product 6", 600, "The sixth product");
-        Product product7 = new ProductImpl("7", "Product 7", 700, "The seventh product");
-        Product product8 = new ProductImpl("8", "Product 8", 800, "The eigth product");
-        Product product9 = new ProductImpl("9", "Product 9", 900, "The ninth product");
-        Product product0 = new ProductImpl("10", "Product 10", 10000, "The tenth product");
+        Product product1 = FactoryHomework1.createProduct("1", "Product 1", 100, "The first product");
+        Product product2 = FactoryHomework1.createProduct("2", "Product 2", 200, "The second product");
+        Product product3 = FactoryHomework1.createProduct("3", "Product 3", 300, "The third product");
+        Product product4 = FactoryHomework1.createProduct("4", "Product 4", 400, "The fourth product");
+        Product product5 = FactoryHomework1.createProduct("5", "Product 5", 500, "The fifth product");
+        Product product6 = FactoryHomework1.createProduct("6", "Product 6", 600, "The sixth product");
+        Product product7 = FactoryHomework1.createProduct("7", "Product 7", 700, "The seventh product");
+        Product product8 = FactoryHomework1.createProduct("8", "Product 8", 800, "The eigth product");
+        Product product9 = FactoryHomework1.createProduct("9", "Product 9", 900, "The ninth product");
+        Product product0 = FactoryHomework1.createProduct("10", "Product 10", 10000, "The tenth product");
 
         catalog.addProduct(product1);
         catalog.addProduct(product2);
@@ -344,7 +262,7 @@ public class TestApp
         client.addToCart("10", 500);
         client.purchaseCart();
 
-        Map<String, Integer> returns = new HashMap<String, Integer>();
+        Map<String, Integer> returns = FactoryCollection.createMap();
         returns.put("10", 100);
 
         client.returnPurchaseToCart(returns);
