@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bbb.Foo;
-import broadway.kyle.CustomerImpl;
-
-import com.javadude.beans.Customer;
 
 /**
  * Servlet implementation class sample
@@ -38,7 +35,6 @@ public class Sample extends HttpServlet
         // TODO Auto-generated method stub
         response.getWriter().println("Hello");
         response.getWriter().println(new Foo().getName());
-        Customer customer = new CustomerImpl(null, null, null, null, null, null, null, null);
     }
 
     /**
