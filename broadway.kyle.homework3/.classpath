@@ -17,5 +17,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework2"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.javadude.hw1.starter"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.javadude.hw2.starter"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework5"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

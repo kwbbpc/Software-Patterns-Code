@@ -15,7 +15,7 @@ public class UndoAction implements ActionStrategy
      * @param undoManager
      * The undo manager handling execution
      */
-    public UndoAction(UndoManager undoManager)
+    UndoAction(UndoManager undoManager)
     {
         this.commandManager = undoManager;
     }

@@ -29,7 +29,7 @@ public class AddToCartAction implements ActionStrategy
      * @param commandManager
      * The undo manager handling execution
      */
-    public AddToCartAction(Client client, UndoManager undoManager)
+    AddToCartAction(Client client, UndoManager undoManager)
     {
         this.client = client;
         this.commandManager = undoManager;
@@ -52,7 +52,7 @@ public class AddToCartAction implements ActionStrategy
         quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
 
         //Create the add to cart command
-        Command addToCartCommand = new AddToCartCommand(client, productId, quantity.intValue());
+        Command addToCartCommand = FactoryHomework2.createAddToCartCommand(client, productId, quantity.intValue());
         if (commandManager != null)
         {
             commandManager.execute(addToCartCommand);

@@ -25,7 +25,7 @@ public class PurchaseAction implements ActionStrategy
      * @param cart
      * The product holder that's holding the items to purchase
      */
-    public PurchaseAction(Client client, UndoManager commandManager,
+    PurchaseAction(Client client, UndoManager commandManager,
             ProductHolder cart)
     {
         super();
@@ -38,7 +38,7 @@ public class PurchaseAction implements ActionStrategy
     public void go(Map<String, String[]> parameters)
     {
         //create the purchase cart command
-        Command purchaseCartCommand = new PurchaseCommand(client, cart);
+        Command purchaseCartCommand = FactoryHomework2.createPurchaseCommand(client, cart);
 
         //tell the command manager to execute it
         if (commandManager != null)

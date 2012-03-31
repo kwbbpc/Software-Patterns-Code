@@ -21,7 +21,7 @@ public class RemoveFromCartAction implements ActionStrategy
      * @param commandManager
      * The undo manager handling execution
      */
-    public RemoveFromCartAction(Client client, UndoManager undoManager)
+    RemoveFromCartAction(Client client, UndoManager undoManager)
     {
         super();
         this.client = client;
@@ -41,7 +41,7 @@ public class RemoveFromCartAction implements ActionStrategy
         Integer quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
 
         //Create the remove from cart command
-        Command removeFromCartCommand = new RemoveFromCartCommand(client, productId, quantity.intValue());
+        Command removeFromCartCommand = FactoryHomework2.createRemoveFromCartCommand(client, productId, quantity.intValue());
         if (commandManager != null)
         {
             commandManager.execute(removeFromCartCommand);
