@@ -35,10 +35,10 @@ public class RemoveFromCartAction implements ActionStrategy
     public void go(Map<String, String[]> parameters)
     {
         //Read the itemId
-        String productId = (String) ParameterParser.find(ParameterParser.itemId, parameters);
+        String productId = ParameterParser.find(ParameterParser.itemId, parameters);
 
         //Read the quantity
-        Integer quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
+        Integer quantity = Integer.parseInt(ParameterParser.find(ParameterParser.quantity, parameters));
 
         //Create the remove from cart command
         Command removeFromCartCommand = FactoryHomework2.createRemoveFromCartCommand(client, productId, quantity.intValue());

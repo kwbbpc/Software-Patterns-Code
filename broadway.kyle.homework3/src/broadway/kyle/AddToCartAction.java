@@ -47,9 +47,9 @@ public class AddToCartAction implements ActionStrategy
         Integer quantity = null;
 
         //Read the item id
-        productId = (String) ParameterParser.find(ParameterParser.itemId, parameters);
+        productId = ParameterParser.find(ParameterParser.itemId, parameters);
         //Read the quantity
-        quantity = (Integer) ParameterParser.find(ParameterParser.quantity, parameters);
+        quantity = Integer.parseInt(ParameterParser.find(ParameterParser.quantity, parameters));
 
         //Create the add to cart command
         Command addToCartCommand = FactoryHomework2.createAddToCartCommand(client, productId, quantity.intValue());

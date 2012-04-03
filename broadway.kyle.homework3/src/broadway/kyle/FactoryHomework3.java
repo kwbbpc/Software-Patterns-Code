@@ -1,6 +1,7 @@
 package broadway.kyle;
 
 import com.javadude.beans.Client;
+import com.javadude.beans.Customer;
 import com.javadude.beans.ProductHolder;
 import com.javadude.command.UndoManager;
 
@@ -30,6 +31,11 @@ public class FactoryHomework3
     public static RedoAction createRedoAction(UndoManager undoManager)
     {
         return new RedoAction(undoManager);
+    }
+
+    public static UpdateCustomerAction createUpdateCustomerAction(Customer customer, UndoManager undoManager)
+    {
+        return new UpdateCustomerAction(customer, undoManager);
     }
 
 }

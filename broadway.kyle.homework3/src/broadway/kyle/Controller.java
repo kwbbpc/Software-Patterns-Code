@@ -53,6 +53,7 @@ public class Controller extends HttpServlet
         strategyMap.put("addToCart", FactoryHomework3.createAddToCartAction(client, commandManager));
         strategyMap.put("removeFromCart", FactoryHomework3.createRemoveFromCartAction(client, commandManager));
         strategyMap.put("purchaseCart", FactoryHomework3.createPurchaseAction(client, commandManager, cart));
+        strategyMap.put("editCustomer", FactoryHomework3.createUpdateCustomerAction(customer, commandManager));
         strategyMap.put("undo", FactoryHomework3.createUndoAction(commandManager));
         strategyMap.put("redo", FactoryHomework3.createRedoAction(commandManager));
 
