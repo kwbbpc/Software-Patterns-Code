@@ -3,10 +3,10 @@ package broadway.kyle.compositeHtmlRendering;
 
 public abstract class TagGeneric implements Renderer
 {
-    protected static final NullText NULL_TEXT = new NullText();
+    protected static final CompositeNullText NULL_TEXT = FactoryCompositeTags.createNullText();
 
 
-    protected Text text = NULL_TEXT;
+    protected CompositeText text = NULL_TEXT;
     protected String startTag = "<>";
     protected String endTag = "</>";
 

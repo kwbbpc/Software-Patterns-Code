@@ -1,8 +1,9 @@
 package broadway.kyle.compositeHtmlRendering;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
+
+import broadway.kyle.FactoryCollection;
 
 /**
  * @author KBroadway
@@ -14,7 +15,7 @@ import java.util.List;
 public abstract class TagComposite extends TagGeneric
 {
     
-    protected List<Renderer> toRenderSet = new ArrayList<Renderer>();
+    protected List<Renderer> toRenderSet = FactoryCollection.createArraylist();
     
     @Override
     public void render(PrintStream stream)
@@ -32,7 +33,7 @@ public abstract class TagComposite extends TagGeneric
     
     public TagComposite add(String text)
     {
-        this.text = new Text(text);
+        this.text = FactoryCompositeTags.createText(text);
         this.toRenderSet.add(this.text);
         return this;
     }

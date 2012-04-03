@@ -29,7 +29,7 @@ public class Field extends TagNonComposite
      * @param text
      * The text to display in a field tag
      */
-    public Field(String name, String label, String value)
+    Field(String name, String label, String value)
     {
         initTags();
         

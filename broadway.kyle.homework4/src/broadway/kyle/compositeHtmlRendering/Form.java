@@ -19,12 +19,21 @@ public class Form extends TagComposite
      * @param url
      * The action (url) to do on submission
      */
-    public Form(String url)
+    Form(String url)
     {
         initTags();
 
         if (url != null)
             this.startTag = "<form action='" + url + "' >";
+
+    }
+    
+    Form(String url, String method)
+    {
+        initTags();
+
+        if (url != null)
+            this.startTag = "<form action='" + url + "' method='" + method + "'>";
 
     }
 

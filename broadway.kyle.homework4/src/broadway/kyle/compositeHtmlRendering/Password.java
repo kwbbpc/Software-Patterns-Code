@@ -27,7 +27,7 @@ public class Password extends TagNonComposite
      * @param text
      * The text to display in a body tag
      */
-    public Password(String name, String label)
+    Password(String name, String label)
     {
         initTags();
         

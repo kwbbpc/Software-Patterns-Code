@@ -27,7 +27,7 @@ public class Button extends TagNonComposite
      * @param text
      * The text to display in a body tag
      */
-    public Button(String name, String label)
+    Button(String name, String label)
     {
         initTags();
         

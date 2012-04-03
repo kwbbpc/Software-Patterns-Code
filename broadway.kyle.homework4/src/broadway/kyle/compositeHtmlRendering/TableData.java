@@ -23,12 +23,12 @@ public class TableData extends TagComposite
      * @param text
      * The text to display in a table tag
      */
-    public TableData(String text)
+    TableData(String text)
     {
         initTags();
 
         //Create the text to write and add as a child to render
-        add(new Text(text));
+        add(FactoryCompositeTags.createText(text));
 
     }
 

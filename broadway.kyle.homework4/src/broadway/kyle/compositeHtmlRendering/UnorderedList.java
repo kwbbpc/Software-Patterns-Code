@@ -14,7 +14,7 @@ public class UnorderedList extends TagComposite
     /**
      * Default constructor with no text
      */
-    public UnorderedList()
+    UnorderedList()
     {
         initTags();
     }
@@ -28,7 +28,7 @@ public class UnorderedList extends TagComposite
         initTags();
 
         //Create the text to write and add as a child to render
-        add(new Text(text));
+        add(FactoryCompositeTags.createText(text));
 
     }
 

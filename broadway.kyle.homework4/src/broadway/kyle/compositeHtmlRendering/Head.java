@@ -13,7 +13,7 @@ public class Head extends TagComposite
     /**
      * Default constructor with no text
      */
-    public Head()
+    Head()
     {
         initTags();
     }
@@ -27,7 +27,7 @@ public class Head extends TagComposite
         initTags();
 
         //Create the text to write and add as a child to render
-        add(new Text(text));
+        add(FactoryCompositeTags.createText(text));
 
     }
 

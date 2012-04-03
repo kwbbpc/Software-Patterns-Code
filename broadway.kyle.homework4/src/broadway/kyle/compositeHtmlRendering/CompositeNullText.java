@@ -2,10 +2,10 @@ package broadway.kyle.compositeHtmlRendering;
 
 import java.io.PrintStream;
 
-public class NullText extends Text
+public class CompositeNullText extends CompositeText
 {
 
-    public NullText()
+    public CompositeNullText()
     {
         super("");
     }

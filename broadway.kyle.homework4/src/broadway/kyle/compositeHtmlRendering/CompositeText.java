@@ -2,11 +2,11 @@ package broadway.kyle.compositeHtmlRendering;
 
 import java.io.PrintStream;
 
-public class Text implements Renderer
+public class CompositeText implements Renderer
 {
     private String text = "";
 
-    public Text(String text)
+    public CompositeText(String text)
     {
         if (text != null)
         {

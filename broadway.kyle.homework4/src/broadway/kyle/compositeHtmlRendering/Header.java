@@ -23,13 +23,12 @@ public class Header extends TagComposite
      * @param text
      * The text to display in a body tag
      */
-    public Header(String text)
+    Header(String text)
     {
         initTags();
 
         //Create the text to write and add as a child to render
-        add(new Text(text));
-
+        add(FactoryCompositeTags.createText(text));
     }
 
 }

@@ -23,7 +23,7 @@ public class Anchor extends TagComposite
      * @param name
      * the name to link to.  set to null if using href instead
      */
-    public Anchor(String text, String href, String name)
+    Anchor(String text, String href, String name)
     {
         initTags();
 
@@ -34,7 +34,7 @@ public class Anchor extends TagComposite
         }
 
         //Create the text to write and add as a child to render
-        add(new Text(text));
+        add(FactoryCompositeTags.createText(text));
 
         if (href != null)
             this.startTag = "<a href=" + href + ">";
