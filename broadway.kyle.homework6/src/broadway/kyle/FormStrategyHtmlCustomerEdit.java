@@ -31,7 +31,7 @@ public class FormStrategyHtmlCustomerEdit implements FormStrategy
         customerForm.add(FactoryCompositeTags.createField("city", "City", customer.getCity()));
         customerForm.add(FactoryCompositeTags.createField("zip", "Zip Code", customer.getZip()));
         customerForm.add(FactoryCompositeTags.createField("phone", "Phone", customer.getPhone()));
-        customerForm.add(FactoryCompositeTags.createPassword("password", customer.getPassword()));
+        customerForm.add(FactoryCompositeTags.createPassword("password", "Password"));
         customerForm.add(FactoryCompositeTags.createButton("update", "Update"));
         return customerForm;
     }

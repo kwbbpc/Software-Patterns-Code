@@ -1,0 +1,25 @@
+<html> 
+  <head> 
+    <title>Customer Information</title> 
+  </head> 
+  <body> 
+    <h1>Customer Information</h1> 
+    <p>Please edit the following information about yourself and press Update to  
+    submit your changes.</p> 
+    <form action="controller?action=updateCustomer&page=customerEdit" method="post"> 
+      <p>Id: <input type='text' name='id' value='old value'/></p> 
+      <p>Name: <input type='text' name='name' value='old value'/></p> 
+      <p>Street: <input type='text' name='street' value='old value'/></p> 
+      <p>City: <input type='text' name='city' value='old value'/></p> 
+      <p>Zip Code: <input type='text' name='zip' value='old value'/></p> 
+      <p>Phone: <input type='text' name='phone' value='old value'/></p> 
+      <p>Password: <input type='password' name='password' /></p> 
+      <p><input type='submit' name='update' value='Update' /></p> 
+    </form> 
+    <p><a href="controller?action=viewCatalog&page=customerEdit">Cancel edit and show catalog</a></p> 
+    <p><a href="controller?action=viewCart&page=customerEdit">Cancel edit and view cart</a></p> 
+    <p><a href="controller?action=purchase&page=customerEdit">Cancel edit and checkout</a></p> 
+    <p><a href="controller?action=undo&page=customerEdit">Undo UNDO-NAME</a></p> 
+    <p><a href="controller?action=redo&page=customerEdit">Redo REDO-NAME</a></p> 
+  </body> 
+</html>

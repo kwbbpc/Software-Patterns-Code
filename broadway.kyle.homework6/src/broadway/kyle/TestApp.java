@@ -11,7 +11,7 @@ public class TestApp
 {
 
     final static String customerEditPage = "CustomerEdit.html";
-    final static String itemCatalogPage = "ItemCatalog.html";
+    final static String catalogPage = "ItemCatalog.html";
     final static String itemDetailPage = "ItemDetail.html";
     final static String shoppingCartPage = "ShoppingCart.html";
     final static String purchaseHistoryPage = "PurchaseHistory.html";
@@ -106,9 +106,20 @@ public class TestApp
         inventory.addQuantity(product9.getId(), 33);
         inventory.addQuantity(product0.getId(), 12);
 
+        commandManager.execute(new AddToCartCommand(client, "1", 5));
+        commandManager.execute(new AddToCartCommand(client, "2", 4));
+        commandManager.execute(new PurchaseCommand(client, customerJohn.getCart()));
+        commandManager.execute(new AddToCartCommand(client, "10", 1));
+        commandManager.execute(new AddToCartCommand(client, "4", 2));
+
+        commandManager.undo();
+
         //create the page directors and build the pages
         Director customerEditDirector = new DirectorCustomerEdit(new BuilderHtml(), customerJohn, commandManager);
         customerEditDirector.build(FactoryInputOutputStream.createFilePrintStream(customerEditPage).getPrintStream());
+
+        Director catalogDirector = new DirectorCatalog(new BuilderHtml(), inventory, catalog, commandManager);
+        catalogDirector.build(FactoryInputOutputStream.createFilePrintStream(catalogPage).getPrintStream());
 
         Director itemDetailDirector = new DirectorItemDetail(new BuilderHtml(), product1, commandManager);
         itemDetailDirector.build(FactoryInputOutputStream.createFilePrintStream(itemDetailPage).getPrintStream());
@@ -116,10 +127,10 @@ public class TestApp
         Director purchaseConfirmationDirector = new DirectorPurchaseConfirmation(new BuilderHtml(), commandManager);
         purchaseConfirmationDirector.build(FactoryInputOutputStream.createFilePrintStream(purchaseConfirmPage).getPrintStream());
 
-        Director purchaseHistoryDirector = new DirectorPurchaseHistory(new BuilderHtml(), commandManager, customerJohn.getBoughtItems());
+        Director purchaseHistoryDirector = new DirectorPurchaseHistory(new BuilderHtml(), commandManager, catalog, customerJohn.getBoughtItems());
         purchaseHistoryDirector.build(FactoryInputOutputStream.createFilePrintStream(purchaseHistoryPage).getPrintStream());
 
-        Director shoppingCartDirector = new DirectorShoppingCart(new BuilderHtml(), customerJohn.getCart(), commandManager);
+        Director shoppingCartDirector = new DirectorShoppingCart(new BuilderHtml(), customerJohn.getCart(), catalog, commandManager);
         shoppingCartDirector.build(FactoryInputOutputStream.createFilePrintStream(shoppingCartPage).getPrintStream());
 
     }

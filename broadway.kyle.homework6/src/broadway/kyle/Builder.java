@@ -2,6 +2,7 @@ package broadway.kyle;
 
 import java.io.PrintStream;
 
+import com.javadude.beans.Catalog;
 import com.javadude.beans.Customer;
 import com.javadude.beans.Product;
 import com.javadude.beans.ProductHolder;
@@ -19,6 +20,11 @@ public interface Builder
     public enum FooterType
     {
         CustomerEdit, Catalog, ItemDetail, PurchaseHistory, PurchaseConfirmation, ShoppingCart
+    }
+
+    public enum TableType
+    {
+        ShoppingCart, Catalog
     }
 
     /**
@@ -50,8 +56,11 @@ public interface Builder
      * 
      * @param ProductHolder
      * The product holder to table-ize
+     * 
+     * @param Catalog
+     * The catalog to look items up in
      */
-    public void buildTable(ProductHolder productHolder);
+    public void buildTable(TableType type, ProductHolder productHolder, Catalog catalog);
 
     /**
      * Builds a paragraph

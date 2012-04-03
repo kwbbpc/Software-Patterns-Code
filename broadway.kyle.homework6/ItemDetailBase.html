@@ -1,0 +1,20 @@
+<html> 
+  <head> 
+    <title>0001: ScrewDriver</title> 
+  </head> 
+  <body> 
+    <h1>0001: Screwdriver</h1> 
+    <p>This screwdriver allows you to screw anything up.</p> 
+    <form action="controller?action=addToCart&page=itemDetail" method="post"> 
+      <p>Quantity: <input type='text' name='quantity' value='1'/></p> 
+      <p><input type='submit' name='addToCart' value='Add to Cart' /></p>
+      <input type='hidden' name='itemId' value='0001' />
+    </form>
+    <p><a href="controller?action=viewCatalog&page=itemDetail">Show Catalog</a></p> 
+    <p><a href="controller?action=editCustomer&page=itemDetail">Edit Customer Details</a></p> 
+    <p><a href="controller?action=viewCart&page=itemDetail">View Cart</a></p> 
+    <p><a href="controller?action=purchase&page=itemDetail">Checkout</a></p> 
+    <p><a href="controller?action=undo&page=itemDetail">Undo UNDO-NAME</a></p> 
+    <p><a href="controller?action=redo&page=itemDetail">Redo REDO-NAME</a></p> 
+  </body> 
+</html>

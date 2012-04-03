@@ -7,6 +7,7 @@ import java.util.Map;
 import broadway.kyle.compositeHtmlRendering.FactoryCompositeTags;
 import broadway.kyle.compositeHtmlRendering.HTML;
 
+import com.javadude.beans.Catalog;
 import com.javadude.beans.Customer;
 import com.javadude.beans.Product;
 import com.javadude.beans.ProductHolder;
@@ -18,11 +19,15 @@ public class BuilderHtml implements Builder
     HTML html;
 
     Map<FooterType, FooterStrategy> footerStrategyMap = new HashMap<FooterType, FooterStrategy>();
+    Map<TableType, TableStrategy> tableStrategyMap = new HashMap<TableType, TableStrategy>();
 
     public BuilderHtml()
     {
 
         html = FactoryCompositeTags.createHTML();
+
+        tableStrategyMap.put(TableType.Catalog, new TableStrategyHtmlCatalog());
+        tableStrategyMap.put(TableType.ShoppingCart, new TableStrategyHtmlShoppingCart());
 
         footerStrategyMap.put(FooterType.Catalog, new FooterStrategyHtmlCatalog());
         footerStrategyMap.put(FooterType.CustomerEdit, new FooterStrategyHtmlCustomerEdit());
@@ -56,10 +61,10 @@ public class BuilderHtml implements Builder
     }
 
     @Override
-    public void buildTable(ProductHolder productHolder)
+    public void buildTable(TableType type, ProductHolder productHolder, Catalog catalog)
     {
-        TableStrategy table = new TableStrategyHtmlCatalog();
-        html.add(table.build(productHolder));
+        TableStrategy table = tableStrategyMap.get(type);
+        html.add(table.build(productHolder, catalog));
 
     }
 

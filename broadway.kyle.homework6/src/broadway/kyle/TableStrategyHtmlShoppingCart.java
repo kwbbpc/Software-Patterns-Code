@@ -10,7 +10,7 @@ import com.javadude.beans.Catalog;
 import com.javadude.beans.Product;
 import com.javadude.beans.ProductHolder;
 
-public class TableStrategyHtmlCatalog implements TableStrategy
+public class TableStrategyHtmlShoppingCart implements TableStrategy
 {
 
     @Override
@@ -24,7 +24,8 @@ public class TableStrategyHtmlCatalog implements TableStrategy
         .add(FactoryCompositeTags.createTableHeader("Id")) //
         .add(FactoryCompositeTags.createTableHeader("Name")) //
         .add(FactoryCompositeTags.createTableHeader("Quantity")) //
-        .add(FactoryCompositeTags.createTableHeader("Price"))); //
+        .add(FactoryCompositeTags.createTableHeader("Price")) //
+        .add(FactoryCompositeTags.createTableHeader("Action"))); //
 
         for (Map.Entry<String, Integer> iterProduct : products.entrySet())
         {
@@ -37,7 +38,8 @@ public class TableStrategyHtmlCatalog implements TableStrategy
             .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor(product.getId(), "controller?action=viewItem&id=" + product.getId() + "&page=catalog", null))) //
             .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor(product.getName(), "controller?action=viewItem&id=" + product.getId() + "&page=catalog", null))) //
             .add(FactoryCompositeTags.createTableData(Integer.toString(iterProduct.getValue()))) //
-            .add(FactoryCompositeTags.createTableData(Integer.toString(product.getPrice())))); //
+            .add(FactoryCompositeTags.createTableData(Integer.toString(catalog.getProduct(iterProduct.getKey()).getPrice()))) //
+            .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor("Remove", "href='controller?action=removeFromCart&id=" + iterProduct.getKey() + "&quantity=" + iterProduct.getValue() + "&page=cart'", null)))); //
 
         }
 

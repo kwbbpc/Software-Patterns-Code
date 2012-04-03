@@ -1,0 +1,37 @@
+<html> 
+  <head> 
+    <title>Shopping Cart</title> 
+  </head> 
+  <body> 
+    <h1>Shopping Cart</h1> 
+    <table> 
+      <tr> 
+        <th>Id</th> 
+        <th>Name</th> 
+        <th>Quantity</th> 
+        <th>Price</th> 
+        <th>Action</th> 
+      </tr> 
+      <tr> 
+        <td><a href="controller?action=viewItem&id=0001&page=cart">0001</a></td> 
+        <td><a href="controller?action=viewItem&id=0001&page=cart">Screwdriver</a></td> 
+        <td>42</td> 
+        <td>$3.42</td> 
+        <td><a href="controller?action=removeFromCart&id=0001&quantity=42&page=cart">Remove</a></td> 
+      </tr> 
+      <tr> 
+        <td><a href="controller?action=viewItem&id=0002&page=cart">0002</a></td> 
+        <td><a href="controller?action=viewItem&id=0002&page=cart">Saw</a></td> 
+        <td>13</td> 
+        <td>$6.47</td> 
+        <td><a href="controller?action=removeFromCart&id=0002&quantity=13&page=cart">Remove</a></td> 
+      </tr> 
+    </table> 
+    <p>Total Cost: $9.89</p> 
+    <p><a href="controller?action=editCustomer&page=cart">Edit Customer Details</a></p> 
+    <p><a href="controller?action=viewCatalog&page=cart">View Catalog</a></p> 
+    <p><a href="controller?action=purchase&page=cart">Checkout</a></p> 
+    <p><a href="controller?action=undo&page=cart">Undo UNDO-NAME</a></p> 
+    <p><a href="controller?action=redo&page=cart">Redo REDO-NAME</a></p> 
+  </body> 
+</html>
