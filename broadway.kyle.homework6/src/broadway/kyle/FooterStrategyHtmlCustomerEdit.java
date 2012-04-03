@@ -3,17 +3,19 @@ package broadway.kyle;
 import broadway.kyle.compositeHtmlRendering.FactoryCompositeTags;
 import broadway.kyle.compositeHtmlRendering.HTML;
 
+import com.javadude.command.UndoManager;
+
 public class FooterStrategyHtmlCustomerEdit extends FooterStrategy
 {
 
     @Override
-    public void build(HTML html)
+    public void build(HTML html, UndoManager undoManager)
     {
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and show catalog", createControllerActionLink("viewCatalog", "customerEdit"), null));
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and view cart", createControllerActionLink("viewCart", "customerEdit"), null));
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and checkout", createControllerActionLink("purchase", "customerEdit"), null));
-        html.add(FactoryCompositeTags.createAnchor("Undo UNDO-NAME", createControllerActionLink("undo", "customerEdit"), null));
-        html.add(FactoryCompositeTags.createAnchor("Redo REDO-NAME", createControllerActionLink("redo", "customerEdit"), null));
+        html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "customerEdit"), null));
+        html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "customerEdit"), null));
     }
 
 }

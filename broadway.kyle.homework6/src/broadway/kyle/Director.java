@@ -1,5 +1,7 @@
 package broadway.kyle;
 
+import java.io.PrintStream;
+
 public interface Director
 {
 
@@ -7,6 +9,6 @@ public interface Director
 
     public void setBuilder(Builder builder);
 
-    public void build();
+    public void build(PrintStream printStream);
 
 }

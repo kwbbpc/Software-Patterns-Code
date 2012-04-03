@@ -2,7 +2,9 @@ package broadway.kyle;
 
 import broadway.kyle.compositeHtmlRendering.Renderer;
 
+import com.javadude.beans.ProductHolder;
+
 public interface TableStrategy
 {
-    public Renderer build();
+    public Renderer build(ProductHolder productHolder);
 }

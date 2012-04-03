@@ -1,29 +1,14 @@
 package broadway.kyle;
 
+import java.io.PrintStream;
+
+import com.javadude.beans.Customer;
+import com.javadude.beans.Product;
+import com.javadude.beans.ProductHolder;
+import com.javadude.command.UndoManager;
+
 public interface Builder
 {
-
-    /**
-     * @author KBroadway
-     * 
-     * The type of form to be built
-     *
-     */
-    public enum FormType
-    {
-        Customer, Detail
-    }
-
-    /**
-     * @author KBroadway
-     *
-     *The Type of table to be built
-     *
-     */
-    public enum TableType
-    {
-        ProductDisplay
-    }
 
     /**
      * @author KBroadway
@@ -45,20 +30,28 @@ public interface Builder
     public void buildHeader(String header);
 
     /**
-     * Builds a form
+     * Builds a customer form
      * 
-     * @param formToBuild
-     * The type of form to build
+     * @param Customer
+     * The customer to build the form for
      */
-    public void buildForm(FormType formToBuild);
+    public void buildForm(Customer customer);
+
+    /**
+     * Builds an item detail form
+     * 
+     * @param product
+     * The product to build the form for
+     */
+    public void buildForm(Product product);
 
     /**
      * Builds a table
      * 
-     * @param tableToBuild
-     * The type of table to build
+     * @param ProductHolder
+     * The product holder to table-ize
      */
-    public void buildTable(TableType tableToBuild);
+    public void buildTable(ProductHolder productHolder);
 
     /**
      * Builds a paragraph
@@ -86,6 +79,13 @@ public interface Builder
      * 
      * 
      */
-    public void buildFooterLinks(FooterType page);
+    public void buildFooterLinks(FooterType page, UndoManager commandManager);
+
+    /**
+     * 
+     * Renders the page
+     * 
+     */
+    public void render(PrintStream stream);
 
 }

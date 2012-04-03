@@ -4,12 +4,15 @@ import broadway.kyle.compositeHtmlRendering.FactoryCompositeTags;
 import broadway.kyle.compositeHtmlRendering.Renderer;
 import broadway.kyle.compositeHtmlRendering.Table;
 
+import com.javadude.beans.ProductHolder;
+
 public class TableStrategyHtmlCatalog implements TableStrategy
 {
 
     @Override
-    public Renderer build()
+    public Renderer build(ProductHolder productHolder)
     {
+
         Table catalogTable = FactoryCompositeTags.createTable();
         catalogTable.add(FactoryCompositeTags.createTableRow() //
         .add(FactoryCompositeTags.createTableHeader("Id")) //

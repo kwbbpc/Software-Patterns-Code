@@ -5,6 +5,6 @@ import broadway.kyle.compositeHtmlRendering.Renderer;
 public interface FormStrategy
 {
 
-    public Renderer build();
+    public <T> Renderer build(T parameter);
 
 }

@@ -1,30 +1,28 @@
 package broadway.kyle;
 
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import broadway.kyle.compositeHtmlRendering.FactoryCompositeTags;
 import broadway.kyle.compositeHtmlRendering.HTML;
 
+import com.javadude.beans.Customer;
+import com.javadude.beans.Product;
+import com.javadude.beans.ProductHolder;
+import com.javadude.command.UndoManager;
+
 public class BuilderHtml implements Builder
 {
 
-    HTML html = FactoryCompositeTags.createHTML();
+    HTML html;
 
-    Map<TableType, TableStrategy> tableStrategyMap;
-    Map<FormType, FormStrategy> formStrategyMap;
-    Map<FooterType, FooterStrategy> footerStrategyMap;
+    Map<FooterType, FooterStrategy> footerStrategyMap = new HashMap<FooterType, FooterStrategy>();
 
     public BuilderHtml()
     {
 
-        //Set up the strategy maps
-        tableStrategyMap = new HashMap<TableType, TableStrategy>();
-        tableStrategyMap.put(TableType.ProductDisplay, new TableStrategyHtmlCatalog());
-
-        formStrategyMap = new HashMap<FormType, FormStrategy>();
-        formStrategyMap.put(FormType.Detail, new FormStrategyHtmlItemDetail());
-        formStrategyMap.put(FormType.Customer, new FormStrategyHtmlCustomerEdit());
+        html = FactoryCompositeTags.createHTML();
 
         footerStrategyMap.put(FooterType.Catalog, new FooterStrategyHtmlCatalog());
         footerStrategyMap.put(FooterType.CustomerEdit, new FooterStrategyHtmlCustomerEdit());
@@ -42,22 +40,26 @@ public class BuilderHtml implements Builder
     }
 
     @Override
-    public void buildForm(FormType formToBuild)
+    public void buildForm(Customer customer)
     {
-        FormStrategy form = formStrategyMap.get(formToBuild);
-
-        if (form != null)
-            html.add(form.build());
+        FormStrategy form = new FormStrategyHtmlCustomerEdit();
+        html.add(form.build(customer));
 
     }
 
     @Override
-    public void buildTable(TableType tableToBuild)
+    public void buildForm(Product product)
     {
-        TableStrategy table = tableStrategyMap.get(tableToBuild);
+        FormStrategy form = new FormStrategyHtmlItemDetail();
+        html.add(form.build(product));
 
-        if (table != null)
-            html.add(table.build());
+    }
+
+    @Override
+    public void buildTable(ProductHolder productHolder)
+    {
+        TableStrategy table = new TableStrategyHtmlCatalog();
+        html.add(table.build(productHolder));
 
     }
 
@@ -77,13 +79,17 @@ public class BuilderHtml implements Builder
     }
 
     @Override
-    public void buildFooterLinks(FooterType page)
+    public void buildFooterLinks(FooterType page, UndoManager commandManager)
     {
         FooterStrategy footer = footerStrategyMap.get(page);
+        footer.build(html, commandManager);
 
-        if (footer != null)
-            footer.build(html);
+    }
 
+    @Override
+    public void render(PrintStream stream)
+    {
+        html.render(stream);
     }
 
 }

@@ -4,20 +4,36 @@ import broadway.kyle.compositeHtmlRendering.FactoryCompositeTags;
 import broadway.kyle.compositeHtmlRendering.Form;
 import broadway.kyle.compositeHtmlRendering.Renderer;
 
+import com.javadude.beans.Customer;
+
 public class FormStrategyHtmlCustomerEdit implements FormStrategy
 {
     @Override
-    public Renderer build()
+    public <T> Renderer build(T parameter)
     {
+
+        Customer customer;
+
+        try
+        {
+            customer = (Customer) parameter;
+        }
+        catch (java.lang.ClassCastException e)
+        {
+            assert (false);
+            return null;
+        }
+
         Form customerForm = FactoryCompositeTags.createForm("controller?action=updateCustomer&page=customerEdit", "post");
-        customerForm.add(FactoryCompositeTags.createField("id", "Id", "old value"));
-        customerForm.add(FactoryCompositeTags.createField("name", "Name", "old value"));
-        customerForm.add(FactoryCompositeTags.createField("street", "Street", "old value"));
-        customerForm.add(FactoryCompositeTags.createField("city", "City", "old value"));
-        customerForm.add(FactoryCompositeTags.createField("zip", "Zip Code", "old value"));
-        customerForm.add(FactoryCompositeTags.createField("phone", "Phone", "old value"));
-        customerForm.add(FactoryCompositeTags.createPassword("password", "Password"));
+        customerForm.add(FactoryCompositeTags.createField("id", "Id", customer.getId()));
+        customerForm.add(FactoryCompositeTags.createField("name", "Name", customer.getName()));
+        customerForm.add(FactoryCompositeTags.createField("street", "Street", customer.getStreet()));
+        customerForm.add(FactoryCompositeTags.createField("city", "City", customer.getCity()));
+        customerForm.add(FactoryCompositeTags.createField("zip", "Zip Code", customer.getZip()));
+        customerForm.add(FactoryCompositeTags.createField("phone", "Phone", customer.getPhone()));
+        customerForm.add(FactoryCompositeTags.createPassword("password", customer.getPassword()));
         customerForm.add(FactoryCompositeTags.createButton("update", "Update"));
         return customerForm;
     }
+
 }

@@ -1,12 +1,36 @@
 package broadway.kyle;
 
+import java.io.PrintStream;
+
 import broadway.kyle.Builder.FooterType;
-import broadway.kyle.Builder.TableType;
+
+import com.javadude.beans.ProductHolder;
+import com.javadude.command.UndoManager;
 
 public class DirectorPurchaseHistory implements Director
 {
 
     private Builder builder;
+
+    private UndoManager commandManager;
+    private ProductHolder productHolder;
+
+    public DirectorPurchaseHistory(Builder builder, UndoManager commandManager,
+            ProductHolder productHolder)
+    {
+        super();
+        this.builder = builder;
+        this.commandManager = commandManager;
+        this.productHolder = productHolder;
+    }
+
+    public DirectorPurchaseHistory(UndoManager commandManager,
+            ProductHolder productHolder)
+    {
+        super();
+        this.commandManager = commandManager;
+        this.productHolder = productHolder;
+    }
 
     @Override
     public Builder getBuilder()
@@ -21,13 +45,16 @@ public class DirectorPurchaseHistory implements Director
     }
 
     @Override
-    public void build()
+    public void build(PrintStream stream)
     {
         builder.buildPageTitle("Purchase History");
         builder.buildHeader("Purchase History");
-        builder.buildTable(TableType.ProductDisplay);
-        builder.buildParagraph("Total Cost: $9.89");
-        builder.buildFooterLinks(FooterType.PurchaseHistory);
+        builder.buildTable(productHolder);
+        builder.buildParagraph(Integer.toString(productHolder.getTotalValue()));
+        builder.buildFooterLinks(FooterType.PurchaseHistory, commandManager);
+
+        builder.render(stream);
+        stream.close();
 
     }
 

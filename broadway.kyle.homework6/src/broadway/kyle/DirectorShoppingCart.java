@@ -1,12 +1,36 @@
 package broadway.kyle;
 
+import java.io.PrintStream;
+
 import broadway.kyle.Builder.FooterType;
-import broadway.kyle.Builder.TableType;
+
+import com.javadude.beans.ProductHolder;
+import com.javadude.command.UndoManager;
 
 public class DirectorShoppingCart implements Director
 {
 
     private Builder builder;
+
+    private ProductHolder productHolder;
+    private UndoManager commandManager;
+
+    public DirectorShoppingCart(Builder builder, ProductHolder productHolder,
+            UndoManager commandManager)
+    {
+        super();
+        this.builder = builder;
+        this.productHolder = productHolder;
+        this.commandManager = commandManager;
+    }
+
+    public DirectorShoppingCart(ProductHolder productHolder,
+            UndoManager commandManager)
+    {
+        super();
+        this.productHolder = productHolder;
+        this.commandManager = commandManager;
+    }
 
     @Override
     public Builder getBuilder()
@@ -21,12 +45,16 @@ public class DirectorShoppingCart implements Director
     }
 
     @Override
-    public void build()
+    public void build(PrintStream stream)
     {
         builder.buildPageTitle("Shopping Cart");
         builder.buildHeader("Shopping Cart");
-        builder.buildTable(TableType.ProductDisplay);
-        builder.buildFooterLinks(FooterType.ShoppingCart);
+        builder.buildTable(productHolder);
+        builder.buildFooterLinks(FooterType.ShoppingCart, commandManager);
+
+        builder.render(stream);
+        stream.close();
+
     }
 
 }
