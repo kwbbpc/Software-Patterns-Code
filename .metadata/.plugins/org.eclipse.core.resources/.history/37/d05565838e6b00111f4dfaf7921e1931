@@ -1,6 +1,0 @@
-package broadway.kyle.html;
-
-public class NonCompositeTag extends TagGeneric
-{
-
-}

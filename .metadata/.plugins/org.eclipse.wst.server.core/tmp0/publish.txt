@@ -1,7 +1,0 @@
-#Tomcat publish data
-#Wed Mar 07 07:47:05 EST 2012
-org.eclipse.jst.j2ee.server\:com.javadude.hw2.starter=WEB-INF/lib/com.javadude.hw2.starter.jar
-org.eclipse.jst.j2ee.server\:com.javadude.hw1.starter=WEB-INF/lib/com.javadude.hw1.starter.jar
-org.eclipse.jst.j2ee.server\:broadway.kyle.homework2=WEB-INF/lib/broadway.kyle.homework2.jar
-org.eclipse.jst.j2ee.server\:broadway.kyle.homework1=WEB-INF/lib/broadway.kyle.homework1.jar
-org.eclipse.jst.j2ee.server\:util1=WEB-INF/lib/util1.jar
