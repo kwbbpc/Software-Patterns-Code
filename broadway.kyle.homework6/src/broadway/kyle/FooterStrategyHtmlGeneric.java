@@ -13,8 +13,11 @@ public class FooterStrategyHtmlGeneric extends FooterStrategy
     {
         html.add(FactoryCompositeTags.createAnchor("Edit Customer Details", createControllerActionLink("editCustomer", "purchaseHistory"), null));
         html.add(FactoryCompositeTags.createAnchor("View Catalog", createControllerActionLink("viewCatalog", "purchaseHistory"), null));
-        html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "purchaseHistory"), null));
-        html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "purchaseHistory"), null));
+
+        if (undoManager.getUndoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "purchaseHistory"), null));
+        if (undoManager.getRedoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "purchaseHistory"), null));
 
     }
 

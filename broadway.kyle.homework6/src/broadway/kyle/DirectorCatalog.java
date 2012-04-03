@@ -44,6 +44,12 @@ public class DirectorCatalog implements Director
     @Override
     public void build(PrintStream stream)
     {
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle("Catalog");
         builder.buildHeader("Catalog");
         builder.buildTable(productHolder);

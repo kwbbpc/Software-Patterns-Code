@@ -14,8 +14,11 @@ public class FooterStrategyHtmlCustomerEdit extends FooterStrategy
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and show catalog", createControllerActionLink("viewCatalog", "customerEdit"), null));
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and view cart", createControllerActionLink("viewCart", "customerEdit"), null));
         html.add(FactoryCompositeTags.createAnchor("Cancel edit and checkout", createControllerActionLink("purchase", "customerEdit"), null));
-        html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "customerEdit"), null));
-        html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "customerEdit"), null));
+
+        if (undoManager.getUndoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "customerEdit"), null));
+        if (undoManager.getRedoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "customerEdit"), null));
     }
 
 }

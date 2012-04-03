@@ -46,6 +46,12 @@ public class DirectorItemDetail implements Director
     @Override
     public void build(PrintStream stream)
     {
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle(product.getId() + ": " + product.getName());
         builder.buildHeader(product.getId() + ": " + product.getName());
         builder.buildParagraph(product.getDescription());

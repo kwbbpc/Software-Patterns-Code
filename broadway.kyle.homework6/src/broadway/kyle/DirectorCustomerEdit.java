@@ -46,6 +46,12 @@ public class DirectorCustomerEdit implements Director
     @Override
     public void build(PrintStream stream)
     {
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle("Customer Information");
         builder.buildHeader("Customer Information");
         builder.buildParagraph("Please edit the following information about yourself and press Update to submit your changes.");

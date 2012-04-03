@@ -15,8 +15,10 @@ public class FooterStrategyHtmlItemDetail extends FooterStrategy
         html.add(FactoryCompositeTags.createAnchor("Edit Customer Details", createControllerActionLink("editCustomer", "itemDetail"), null));
         html.add(FactoryCompositeTags.createAnchor("View Cart", createControllerActionLink("viewCart", "itemDetail"), null));
         html.add(FactoryCompositeTags.createAnchor("Checkout", createControllerActionLink("purchase", "itemDetail"), null));
-        html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "itemDetail"), null));
-        html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "itemDetail"), null));
+        if (undoManager.getUndoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "itemDetail"), null));
+        if (undoManager.getRedoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "itemDetail"), null));
 
     }
 

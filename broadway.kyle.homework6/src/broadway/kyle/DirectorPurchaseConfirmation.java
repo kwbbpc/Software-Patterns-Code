@@ -42,6 +42,13 @@ public class DirectorPurchaseConfirmation implements Director
     @Override
     public void build(PrintStream stream)
     {
+
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle("Thanks!");
         builder.buildHeader("Thank you for your purchase!");
         builder.buildFooterLinks(FooterType.PurchaseConfirmation, commandManager);

@@ -47,6 +47,13 @@ public class DirectorShoppingCart implements Director
     @Override
     public void build(PrintStream stream)
     {
+
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle("Shopping Cart");
         builder.buildHeader("Shopping Cart");
         builder.buildTable(productHolder);

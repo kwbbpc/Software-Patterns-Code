@@ -47,6 +47,13 @@ public class DirectorPurchaseHistory implements Director
     @Override
     public void build(PrintStream stream)
     {
+
+        if (builder == null)
+        {
+            stream.close();
+            return;
+        }
+
         builder.buildPageTitle("Purchase History");
         builder.buildHeader("Purchase History");
         builder.buildTable(productHolder);

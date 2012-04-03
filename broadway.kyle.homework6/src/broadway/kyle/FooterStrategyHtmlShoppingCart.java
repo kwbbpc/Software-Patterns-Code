@@ -14,8 +14,10 @@ public class FooterStrategyHtmlShoppingCart extends FooterStrategy
         html.add(FactoryCompositeTags.createAnchor("Edit Customer Details", createControllerActionLink("editCustomer", "cart"), null));
         html.add(FactoryCompositeTags.createAnchor("View Cart", createControllerActionLink("viewCart", "cart"), null));
         html.add(FactoryCompositeTags.createAnchor("Checkout", createControllerActionLink("purchase", "cart"), null));
-        html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "cart"), null));
-        html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "cart"), null));
+        if (undoManager.getUndoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "cart"), null));
+        if (undoManager.getRedoName() != null)
+            html.add(FactoryCompositeTags.createAnchor("Redo " + undoManager.getRedoName(), createControllerActionLink("redo", "cart"), null));
 
     }
 
