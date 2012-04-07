@@ -1,6 +1,5 @@
 package broadway.kyle;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.javadude.beans.Client;
@@ -16,7 +15,7 @@ public class PurchaseCommand implements Command
     public PurchaseCommand(Client client, ProductHolder cart)
     {
         this.client = client;
-        this.oldQuantities = new HashMap<String, Integer>(cart.getQuantities());
+        this.oldQuantities = FactoryCollection.createMap(cart.getQuantities());
     }
 
     @Override

@@ -3,9 +3,6 @@ package broadway.kyle;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
@@ -36,8 +33,8 @@ public class UI extends JFrame
 {
     private static final long serialVersionUID = 1L;
 
-    private JLabel cartTotalLabel = new JLabel();
-    private JLabel boughtItemsTotalLabel = new JLabel();
+    private JLabel cartTotalLabel = FactoryHomework2.createJLabel();
+    private JLabel boughtItemsTotalLabel = FactoryHomework2.createJLabel();
 
     private SimpleTextField idField;
     private SimpleTextField nameField;
@@ -47,19 +44,19 @@ public class UI extends JFrame
     private SimpleTextField phoneField;
     private SimpleTextField passwordField;
 
-    private JTextField productIdField = new JTextField("");
-    private JTextField quantityField = new JTextField("");
+    private JTextField productIdField = FactoryHomework2.createJTextField("");
+    private JTextField quantityField = FactoryHomework2.createJTextField("");
 
-    private JButton addButton = new JButton("Add to Cart");
-    private JButton removeButton = new JButton("Remove from Cart");
-    private JButton purchaseButton = new JButton("Purchase");
-    private JButton undoButton = new JButton("Nothing to Undo");
-    private JButton redoButton = new JButton("Nothing to Redo");
+    private JButton addButton = FactoryHomework2.createJButton("Add to Cart");
+    private JButton removeButton = FactoryHomework2.createJButton("Remove from Cart");
+    private JButton purchaseButton = FactoryHomework2.createJButton("Purchase");
+    private JButton undoButton = FactoryHomework2.createJButton("Nothing to Undo");
+    private JButton redoButton = FactoryHomework2.createJButton("Nothing to Redo");
 
     private final Customer customer;
     private final Client client;
 
-    public UI(ProductHolder inventory, Customer customer, Client client)
+    UI(ProductHolder inventory, Customer customer, Client client)
     {
         // DO NOT CHANGE THE FOLLOWING CODE
         this.customer = customer;
@@ -84,50 +81,12 @@ public class UI extends JFrame
     private void setupController()
     {
         // START YOUR CHANGES HERE
-        final UndoManager undoManager = new UndoManagerImpl();
+        final UndoManager undoManager = FactoryHomework2.createUndoManager();
 
         // listen to each text field - when its "text" property changes, update the property in the
         //      customer
-        PropertyChangeListener textFieldListener = new PropertyChangeListener()
-        {
+        PropertyChangeListener textFieldListener = FactoryPropertyChange.createPropertyChangeListener(FactoryHomework2.createEventActionTextField(customer));
 
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                if ("id".equals(evt.getPropertyName()))
-                {
-                    customer.setId(evt.getNewValue().toString());
-                }
-                else if ("name".equals(evt.getPropertyName()))
-                {
-                    customer.setName(evt.getNewValue().toString());
-                }
-                else if ("street".equals(evt.getPropertyName()))
-                {
-                    customer.setStreet(evt.getNewValue().toString());
-                }
-                else if ("city".equals(evt.getPropertyName()))
-                {
-                    customer.setCity(evt.getNewValue().toString());
-                }
-                else if ("zip".equals(evt.getPropertyName()))
-                {
-                    customer.setZip(evt.getNewValue().toString());
-                }
-                else if ("phone".equals(evt.getPropertyName()))
-                {
-                    customer.setPhone(evt.getNewValue().toString());
-                }
-                else if ("password".equals(evt.getPropertyName()))
-                {
-                    customer.setPassword(evt.getNewValue().toString());
-                }
-
-                System.out.println("Text field [" + evt.getPropertyName() + "] changed from [" + evt.getOldValue() + "] to [" + evt.getNewValue() + "].");
-
-            }
-
-        };
         //Add the listeners
         idField.addPropertyChangeListener(textFieldListener);
         nameField.addPropertyChangeListener(textFieldListener);
@@ -138,69 +97,14 @@ public class UI extends JFrame
         passwordField.addPropertyChangeListener(textFieldListener);
 
         // listen to the customer - when any of its String properties change, update the corresponding text field
-        PropertyChangeListener customerListener = new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
+        PropertyChangeListener customerListener = FactoryPropertyChange.createPropertyChangeListener(FactoryHomework2.createEventActionCustomer(idField, nameField, streetField, cityField, zipField, phoneField, passwordField));
 
-                if ("id".equals(evt.getPropertyName()))
-                {
-                    idField.setText(evt.getNewValue().toString());
-                }
-                else if ("name".equals(evt.getPropertyName()))
-                {
-                    nameField.setText(evt.getNewValue().toString());
-                }
-                else if ("street".equals(evt.getPropertyName()))
-                {
-                    streetField.setText(evt.getNewValue().toString());
-                }
-                else if ("city".equals(evt.getPropertyName()))
-                {
-                    cityField.setText(evt.getNewValue().toString());
-                }
-                else if ("zip".equals(evt.getPropertyName()))
-                {
-                    zipField.setText(evt.getNewValue().toString());
-                }
-                else if ("phone".equals(evt.getPropertyName()))
-                {
-                    phoneField.setText(evt.getNewValue().toString());
-                }
-                else if ("password".equals(evt.getPropertyName()))
-                {
-                    passwordField.setText(evt.getNewValue().toString());
-                }
-
-                System.out.println("Customer property [" + evt.getPropertyName() + "] changed from [" + evt.getOldValue() + "] to [" + evt.getNewValue() + "].");
-
-            }
-
-        };
         //add the customer listener
         customer.addPropertyChangeListener(customerListener);
 
         // listen for "totalValue" property changes (on the customer and his shopping cart)
         //      when these change, update the corresponding labels (by calling setText() on them)
-        PropertyChangeListener totalValueListener = new PropertyChangeListener()
-        {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-
-                if ("totalValue".equals(evt.getPropertyName()))
-                {
-                    boughtItemsTotalLabel.setText(Integer.toString(customer.getBoughtItems().getTotalValue()));
-                    cartTotalLabel.setText(Integer.toString(customer.getCart().getTotalValue()));
-                }
-
-                System.out.println("Cart value changed to [" + customer.getBoughtItems().getTotalValue() + "].");
-                System.out.println("Cart value changed to [" + customer.getCart().getTotalValue() + "].");
-
-            }
-
-        };
+        PropertyChangeListener totalValueListener = FactoryPropertyChange.createPropertyChangeListener(FactoryHomework2.createEventActionTotalValue(cartTotalLabel, boughtItemsTotalLabel, customer));
         customer.getBoughtItems().addPropertyChangeListener(totalValueListener);
         customer.getCart().addPropertyChangeListener(totalValueListener);
 
@@ -210,93 +114,22 @@ public class UI extends JFrame
         //      purchaseButton: make undoManager execute PurchaseCommand
         //      undoButton: call undoManager's undo()
         //      redoButton: call undoManager's redo()
-        addButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                undoManager.execute(new AddToCartCommand(client, productIdField.getText(), Integer.parseInt(quantityField.getText())));
-            }
-        });
-        removeButton.addActionListener(new ActionListener()
-        {
+        addButton.addActionListener(FactoryHomework2.createActionListener(FactoryHomework2.createActionAdd(client, productIdField, quantityField, undoManager)));
 
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                undoManager.execute(new RemoveFromCartCommand(client, productIdField.getText(), Integer.parseInt(quantityField.getText())));
-            }
+        removeButton.addActionListener(FactoryHomework2.createActionListener(FactoryHomework2.createActionRemove(client, productIdField, quantityField, undoManager)));
 
-        });
-        purchaseButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                undoManager.execute(new PurchaseCommand(client, customer.getCart()));
-            }
+        purchaseButton.addActionListener(FactoryHomework2.createActionListener(FactoryHomework2.createActionPurchase(client, customer, undoManager)));
 
-        });
-        undoButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                undoManager.undo();
-            }
+        undoButton.addActionListener(FactoryHomework2.createActionListener(FactoryHomework2.createActionUndo(undoManager)));
 
-        });
-        redoButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                undoManager.redo();
-            }
-
-        });
+        redoButton.addActionListener(FactoryHomework2.createActionListener(FactoryHomework2.createActionRedo(undoManager)));
 
         // listen to undoManager - when his undoName or redoName properties change,
         //      update the text on the undoButton and redoButton  (eg: "Undo add item 42 to cart")
         //      if the text is null, set to "Nothing to Undo" (or Redo) and setEnabled(false) on button
         //      if the text is non-null, set to "Undo <<undo name>>" and setEnabled(true) on button
-        PropertyChangeListener undoManagerListener = new PropertyChangeListener()
-        {
+        PropertyChangeListener undoManagerListener = FactoryPropertyChange.createPropertyChangeListener(FactoryHomework2.createEventActionUndoManager(undoButton, redoButton, undoManager));
 
-            @Override
-            public void propertyChange(PropertyChangeEvent evt)
-            {
-                if ("undoName".equals(evt.getPropertyName()))
-                {
-                    if (undoManager.getUndoName() == null)
-                    {
-                        undoButton.setText("Nothing to undo.");
-                        undoButton.setEnabled(false);
-                    }
-                    else
-                    {
-                        undoButton.setText("Undo " + undoManager.getUndoName());
-                        undoButton.setEnabled(true);
-                    }
-
-                }
-                else if ("redoName".equals(evt.getPropertyName()))
-                {
-                    if (undoManager.getRedoName() == null)
-                    {
-                        redoButton.setText("Nothing to redo.");
-                        redoButton.setEnabled(false);
-                    }
-                    else
-                    {
-                        redoButton.setText("Redo " + undoManager.getRedoName());
-                        redoButton.setEnabled(true);
-                    }
-                }
-
-            }
-
-        };
         undoManager.addPropertyChangeListener(undoManagerListener);
 
     }

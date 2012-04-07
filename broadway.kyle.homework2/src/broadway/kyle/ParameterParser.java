@@ -15,6 +15,14 @@ public class ParameterParser
     public static final String itemId = "itemId";
     public static final String quantity = "quantity";
 
+    public static final String id = "id";
+    public static final String name = "name";
+    public static final String street = "street";
+    public static final String city = "city";
+    public static final String zip = "zip";
+    public static final String phone = "phone";
+    public static final String password = "password";
+
     /**
      * Parses through the given map of parameters and returns the value
      * corresponding to the paramToFind.
@@ -26,34 +34,16 @@ public class ParameterParser
      * @return
      * The value corresponding to paramToFind
      */
-    public static Object find(String paramToFind, Map<String, String[]> params)
+    public static String find(String paramToFind, Map<String, String[]> params)
     {
         if (params != null)
         {
             String[] values = params.get(paramToFind);
 
-            if (paramToFind.equals(itemId))
-            {
-                if (values.length >= 1)
-                    return values[0];
-                else
-                    return "";
-
-            }
-
-            else if (paramToFind.equals(quantity))
-            {
-                try
-                {
-                    return new Integer(Integer.parseInt(values[0]));
-                }
-                catch (NumberFormatException e)
-                {
-                    return 0;
-                }
-
-            }
-
+            if (values.length >= 1)
+                return values[0];
+            else
+                return "";
         }
 
         return null;

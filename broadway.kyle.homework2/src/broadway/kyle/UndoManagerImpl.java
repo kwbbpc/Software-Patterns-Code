@@ -11,10 +11,10 @@ import com.javadude.command.UndoManager;
 public class UndoManagerImpl implements UndoManager
 {
 
-    private Stack<Command> undoStack = new Stack<Command>();
-    private Stack<Command> redoStack = new Stack<Command>();
+    private Stack<Command> undoStack = FactoryCollection.createStack();
+    private Stack<Command> redoStack = FactoryCollection.createStack();
 
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private PropertyChangeSupport pcs = FactoryPropertyChange.createPropertyChangeSupport(this);
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener)

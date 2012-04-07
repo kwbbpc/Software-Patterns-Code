@@ -1,11 +1,11 @@
 package broadway.kyle;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.table.AbstractTableModel;
+
 
 import com.javadude.beans.ProductHolder;
 
@@ -37,14 +37,7 @@ public class ProductTableModel extends AbstractTableModel
     }
 
     //The model listener
-    private PropertyChangeListener modelListener = new PropertyChangeListener()
-    {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt)
-        {
-            fireTableDataChanged();
-        }
-    };
+    private PropertyChangeListener modelListener = FactoryPropertyChange.createPropertyChangeListener(FactoryHomework2.createEventActionModel(this));
 
     public ProductTableModel(ProductHolder productHolder)
     {
@@ -111,7 +104,7 @@ public class ProductTableModel extends AbstractTableModel
         // report the value for the specified column for that row
 
         //get the map of products and sort the product IDs
-        ArrayList<String> productIdList = new ArrayList<String>(productHolder.getQuantities().keySet());
+        ArrayList<String> productIdList = FactoryCollection.createArraylist(productHolder.getQuantities().keySet());
         Collections.sort(productIdList);
 
         //get the corresponding ID from the sorted list
