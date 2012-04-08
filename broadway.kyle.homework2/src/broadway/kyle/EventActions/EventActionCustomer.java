@@ -62,7 +62,7 @@ public class EventActionCustomer implements EventAction
             passwordField.setText(evt.getNewValue().toString());
         }
 
-        System.out.println("Customer property [" + evt.getPropertyName() + "] changed from [" + evt.getOldValue() + "] to [" + evt.getNewValue() + "].");
+        //        System.out.println("Customer property [" + evt.getPropertyName() + "] changed from [" + evt.getOldValue() + "] to [" + evt.getNewValue() + "].");
 
     }
 

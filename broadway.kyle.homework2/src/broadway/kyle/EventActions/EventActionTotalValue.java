@@ -32,8 +32,8 @@ public class EventActionTotalValue implements EventAction
             cartTotalLabel.setText(Integer.toString(customer.getCart().getTotalValue()));
         }
 
-        System.out.println("Cart value changed to [" + customer.getBoughtItems().getTotalValue() + "].");
-        System.out.println("Cart value changed to [" + customer.getCart().getTotalValue() + "].");
+        //        System.out.println("Cart value changed to [" + customer.getBoughtItems().getTotalValue() + "].");
+        //        System.out.println("Cart value changed to [" + customer.getCart().getTotalValue() + "].");
 
     }
 

@@ -26,9 +26,9 @@ public class ClientImpl implements Client
     @Override
     public void addToCart(String productId, int quantity)
     {
-        System.out.println("");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Client: Product [" + productId + "] x " + quantity + " is being added to the cart.");
+        //        System.out.println("");
+        //        System.out.println("------------------------------------------------------------");
+        //        System.out.println("Client: Product [" + productId + "] x " + quantity + " is being added to the cart.");
         for (CommandListener listener : listeners)
         {
             listener.addToCart(productId, quantity);
@@ -38,9 +38,9 @@ public class ClientImpl implements Client
     @Override
     public void removeFromCart(String productId, int quantity)
     {
-        System.out.println("");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Client: Product [" + productId + "] x " + quantity + " is being removed from the cart.");
+        //        System.out.println("");
+        //        System.out.println("------------------------------------------------------------");
+        //        System.out.println("Client: Product [" + productId + "] x " + quantity + " is being removed from the cart.");
 
         for (CommandListener listener : listeners)
         {
@@ -51,12 +51,12 @@ public class ClientImpl implements Client
     @Override
     public void returnPurchaseToCart(Map<String, Integer> purchasedItems)
     {
-        System.out.println("");
-        System.out.println("------------------------------------------------------------");
-        for (Map.Entry<String, Integer> iterMap : purchasedItems.entrySet())
-        {
-            System.out.println("Client: Previously purcahsed product [" + iterMap.getKey() + "] x " + iterMap.getValue() + " is being returned to the cart.");
-        }
+        //        System.out.println("");
+        //        System.out.println("------------------------------------------------------------");
+        //        for (Map.Entry<String, Integer> iterMap : purchasedItems.entrySet())
+        //        {
+        //                        System.out.println("Client: Previously purcahsed product [" + iterMap.getKey() + "] x " + iterMap.getValue() + " is being returned to the cart.");
+        //        }
 
         for (CommandListener listener : listeners)
         {
@@ -67,9 +67,9 @@ public class ClientImpl implements Client
     @Override
     public void purchaseCart()
     {
-        System.out.println("");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Client: The cart is being purchased.");
+        //        System.out.println("");
+        //        System.out.println("------------------------------------------------------------");
+        //        System.out.println("Client: The cart is being purchased.");
 
         for (CommandListener listener : listeners)
         {
