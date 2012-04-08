@@ -10,6 +10,4 @@ public interface Logger
 
     void log(Severity severity, String message);
 
-    boolean isLoggingEnabled();
-
 }
