@@ -11,9 +11,9 @@ import com.javadude.command.UndoManager;
 public class ActionPurchase implements ActionButton
 {
 
-    Client client;
-    Customer customer;
-    UndoManager undoManager;
+    private Client client;
+    private Customer customer;
+    private UndoManager undoManager;
 
     public ActionPurchase(Client client, Customer customer,
             UndoManager undoManager)

@@ -28,19 +28,60 @@ import com.javadude.command.UndoManager;
 public class FactoryHomework2
 {
 
+    static Logger FactoryLogger = null;
+    static boolean LoggingEnabled = false;
+
+    public static void SetLogger(Logger logger, boolean enable)
+    {
+        FactoryLogger = logger;
+        LoggingEnabled = enable;
+    }
+
     public static Command createPurchaseCommand(Client client, ProductHolder cart)
     {
-        return new PurchaseCommand(client, cart);
+        if (LoggingEnabled && (FactoryLogger != null))
+            return new CommandDecorator(FactoryLogger, new PurchaseCommand(client, cart));
+        else
+            return new PurchaseCommand(client, cart);
     }
 
     public static Command createRemoveFromCartCommand(Client client, String productId, int quantity)
     {
-        return new RemoveFromCartCommand(client, productId, quantity);
+        if (LoggingEnabled && (FactoryLogger != null))
+            return new CommandDecorator(FactoryLogger, new RemoveFromCartCommand(client, productId, quantity));
+        else
+            return new RemoveFromCartCommand(client, productId, quantity);
     }
 
     public static Command createAddToCartCommand(Client client, String productId, int quantity)
     {
-        return new AddToCartCommand(client, productId, quantity);
+        if (LoggingEnabled && (FactoryLogger != null))
+            return new CommandDecorator(FactoryLogger, new AddToCartCommand(client, productId, quantity));
+        else
+            return new AddToCartCommand(client, productId, quantity);
+    }
+
+    public static Command createUpdateCustomerCommand(Customer customer, String id, String name, String street, String city, String zip, String phone, String password)
+    {
+        if (LoggingEnabled && (FactoryLogger != null))
+            return new CommandDecorator(FactoryLogger, new UpdateCustomerCommand(customer, id, name, street, city, zip, phone, password));
+        else
+            return new UpdateCustomerCommand(customer, id, name, street, city, zip, phone, password);
+    }
+
+    public static ActionButton createActionAdd(Client client, JTextField productIdField, JTextField quantityField, UndoManager undoManager)
+    {
+        return new ActionAdd(client, productIdField, quantityField, undoManager);
+    }
+
+    public static ActionButton createActionRemove(Client client, JTextField productIdField, JTextField quantityField, UndoManager undoManager)
+    {
+        return new ActionRemove(client, productIdField, quantityField, undoManager);
+    }
+
+    public static ActionButton createActionPurchase(Client client, Customer customer, UndoManager undoManager)
+    {
+        return new ActionPurchase(client, customer, undoManager);
     }
 
     public static EventAction createEventActionModel(ProductTableModel table)
@@ -90,21 +131,6 @@ public class FactoryHomework2
         };
     }
 
-    public static ActionButton createActionAdd(Client client, JTextField productIdField, JTextField quantityField, UndoManager undoManager)
-    {
-        return new ActionAdd(client, productIdField, quantityField, undoManager);
-    }
-
-    public static ActionButton createActionRemove(Client client, JTextField productIdField, JTextField quantityField, UndoManager undoManager)
-    {
-        return new ActionRemove(client, productIdField, quantityField, undoManager);
-    }
-
-    public static ActionButton createActionPurchase(Client client, Customer customer, UndoManager undoManager)
-    {
-        return new ActionPurchase(client, customer, undoManager);
-    }
-
     public static ActionButton createActionUndo(UndoManager undoManager)
     {
         return new ActionUndo(undoManager);
@@ -128,10 +154,5 @@ public class FactoryHomework2
     public static JLabel createJLabel()
     {
         return new JLabel();
-    }
-
-    public static Command createUpdateCustomerCommand(Customer customer, String id, String name, String street, String city, String zip, String phone, String password)
-    {
-        return new UpdateCustomerCommand(customer, id, name, street, city, zip, phone, password);
     }
 }

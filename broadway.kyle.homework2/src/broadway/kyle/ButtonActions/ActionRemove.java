@@ -12,10 +12,10 @@ import com.javadude.command.UndoManager;
 public class ActionRemove implements ActionButton
 {
 
-    Client client;
-    JTextField productIdField;
-    JTextField quantityField;
-    UndoManager undoManager;
+    private Client client;
+    private JTextField productIdField;
+    private JTextField quantityField;
+    private UndoManager undoManager;
 
     public ActionRemove(Client client, JTextField productIdField2,
             JTextField quantityField2, UndoManager undoManager)

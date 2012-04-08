@@ -43,4 +43,11 @@ public class PurchaseCommand implements Command
         return "purchase cart";
     }
 
+    @Override
+    public String toString()
+    {
+        return getClass().getName() + ": Params[(Client:" + client.toString() + "), (Cart:" + oldQuantities.toString() + ")]";
+
+    }
+
 }

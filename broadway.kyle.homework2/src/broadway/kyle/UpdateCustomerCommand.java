@@ -70,4 +70,11 @@ public class UpdateCustomerCommand implements Command
         return "customer edit";
     }
 
+    @Override
+    public String toString()
+    {
+        return getClass().getName() + ": Params[(Customer:" + customer.toString() + "), (Id:" + id + "), (Name:" + name + "), (Street:" + street + "), (City:" + city + "), (Zip:" + zip + "), (Phone:" + phone + "), (Password:" + password + ")]";
+
+    }
+
 }

@@ -41,4 +41,11 @@ public class RemoveFromCartCommand implements Command
         return "remove from cart";
     }
 
+    @Override
+    public String toString()
+    {
+        return getClass().getName() + ": Params[(Client:" + client.toString() + "), (ProductId:" + productId + "), (Quantity:" + quantity + ")]";
+
+    }
+
 }

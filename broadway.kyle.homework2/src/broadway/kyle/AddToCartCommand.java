@@ -41,4 +41,11 @@ public class AddToCartCommand implements Command
         return "add to cart";
     }
 
+    @Override
+    public String toString()
+    {
+        return getClass().getName() + ": Params[(Client:" + client.toString() + "), (ProductId:" + productId + "), (Quantity:" + quantity + ")]";
+
+    }
+
 }

@@ -16,5 +16,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework5"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework7"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
