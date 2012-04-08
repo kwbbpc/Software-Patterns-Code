@@ -15,6 +15,12 @@
         <dependent-module archiveName="com.javadude.hw1.starter.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/com.javadude.hw1.starter/com.javadude.hw1.starter">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework7.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework7/broadway.kyle.homework7">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework5.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework5/broadway.kyle.homework5">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="broadway.kyle.homework3"/>
         <property name="java-output-path" value="/broadway.kyle.homework3/build/classes"/>
     </wb-module>

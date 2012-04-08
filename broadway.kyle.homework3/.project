@@ -3,10 +3,12 @@
 	<name>broadway.kyle.homework3</name>
 	<comment></comment>
 	<projects>
-		<project>broadway.kyle.homework2</project>
-		<project>com.javadude.hw2.starter</project>
 		<project>broadway.kyle.homework1</project>
+		<project>broadway.kyle.homework2</project>
+		<project>broadway.kyle.homework7</project>
 		<project>com.javadude.hw1.starter</project>
+		<project>com.javadude.hw2.starter</project>
+		<project>broadway.kyle.homework5</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

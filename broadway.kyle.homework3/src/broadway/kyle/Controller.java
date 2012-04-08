@@ -33,14 +33,16 @@ public class Controller extends HttpServlet
     private UndoManager commandManager = FactoryHomework2.createUndoManager();
     private Map<String, ActionStrategy> strategyMap = FactoryCollection.createMap();
 
-    private Logger logger;
-
     @Override
     public void init() throws ServletException
     {
 
         boolean enableLogging = "true".equalsIgnoreCase(getInitParameter("enableLogging"));
-        logger = new LoggerImpl(enableLogging);
+
+        if ("alternate".equalsIgnoreCase(getInitParameter("logger")))
+            FactoryHomework2.SetLogger(new AlternateLoggerAdapter(new AlternateLogger()), enableLogging);
+        else
+            FactoryHomework2.SetLogger(new LoggerImpl(), enableLogging);
 
         cart.setCatalog(catalog);
         customer.setCart(cart);
@@ -51,8 +53,6 @@ public class Controller extends HttpServlet
 
         initializeCatalogAndInventory();
 
-        //launch the GUI
-        FactoryHomework2.SetLogger(logger, enableLogging);
         FactoryHomework2.createUI(inventory, customer, client).setVisible(true);
 
         //Create the different strategies
@@ -82,13 +82,13 @@ public class Controller extends HttpServlet
     private void addPropertyChangeListeners()
     {
 
-        customer.getBoughtItems().addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionHistory()));
-
-        catalog.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCatalog()));
-
-        cart.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCart()));
-
-        inventory.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionInventory()));
+        //        customer.getBoughtItems().addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionHistory()));
+        //
+        //        catalog.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCatalog()));
+        //
+        //        cart.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionCart()));
+        //
+        //        inventory.addPropertyChangeListener(FactoryPropertyChange.createPropertyChangeListener(FactoryHomework1.createEventActionInventory()));
 
         // Create an ordered command listener that will call it's listeners in a
         // Guaranteed order

@@ -1,0 +1,18 @@
+<web-app> 
+    <servlet> 
+      <servlet-name>controller</servlet-name> 
+      <servlet-class>broadway.kyle.Controller</servlet-class> 
+      <init-param> 
+        <param-name>enableLogging</param-name> 
+        <param-value>true</param-value> 
+      </init-param>
+      <init-param> 
+        <param-name>logger</param-name> 
+        <param-value>standard</param-value> 
+      </init-param>         
+    </servlet> 
+    <servlet-mapping> 
+      <servlet-name>controller</servlet-name> 
+      <url-pattern>/controller</url-pattern> 
+    </servlet-mapping> 
+  </web-app>
