@@ -12,7 +12,7 @@ import java.util.Map;
 public class ParameterParser
 {
 
-    public static final String itemId = "itemId";
+    public static final String itemId = "id";
     public static final String quantity = "quantity";
 
     public static final String id = "id";

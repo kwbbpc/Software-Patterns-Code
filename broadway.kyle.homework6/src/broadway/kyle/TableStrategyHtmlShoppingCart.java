@@ -39,7 +39,7 @@ public class TableStrategyHtmlShoppingCart implements TableStrategy
             .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor(product.getName(), "controller?action=viewItem&id=" + product.getId() + "&page=catalog", null))) //
             .add(FactoryCompositeTags.createTableData(Integer.toString(iterProduct.getValue()))) //
             .add(FactoryCompositeTags.createTableData(Integer.toString(catalog.getProduct(iterProduct.getKey()).getPrice()))) //
-            .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor("Remove", "href='controller?action=removeFromCart&id=" + iterProduct.getKey() + "&quantity=" + iterProduct.getValue() + "&page=cart'", null)))); //
+            .add(FactoryCompositeTags.createTableData("").add(FactoryCompositeTags.createAnchor("Remove", "controller?action=removeFromCart&id=" + iterProduct.getKey() + "&quantity=" + iterProduct.getValue() + "&page=cart", null)))); //
 
         }
 

@@ -56,7 +56,7 @@ public class AddToCartAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(addToCartCommand);
-            return "Good";
+            return "Ok";
         }
         else
         {

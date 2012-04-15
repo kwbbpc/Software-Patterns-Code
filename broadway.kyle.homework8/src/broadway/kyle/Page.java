@@ -1,6 +1,5 @@
 package broadway.kyle;
 
-import java.util.List;
 
 import broadway.kyle.Pages;
 
@@ -43,6 +42,14 @@ public interface Page
     
     Pages getType();
     
+    Page undoOk();
+    
+    Page undoBad();
+    
+    Page redoOk();
+    
+    Page redoBad();
+    
     
     //Maps an enumeration of an action + result to a particular Page method to call.
     public enum actionResult{
@@ -61,7 +68,11 @@ public interface Page
         purchaseOk          {public Page call(Page currentPage) {return currentPage.purchaseOk();}},
         purchaseBad         {public Page call(Page currentPage) {return currentPage.purchaseBad();}},
         viewItemOk          {public Page call(Page currentPage) {return currentPage.viewItemOk();}},
-        viewItemBad         {public Page call(Page currentPage) {return currentPage.viewItemBad();}};
+        viewItemBad         {public Page call(Page currentPage) {return currentPage.viewItemBad();}},
+        undoOk              {public Page call(Page currentPage) {return currentPage.undoOk();}},
+        undoBad              {public Page call(Page currentPage) {return currentPage.undoBad();}},
+        redoOk              {public Page call(Page currentPage) {return currentPage.redoOk();}},
+        redoBad              {public Page call(Page currentPage) {return currentPage.redoBad();}},;
         
         public abstract Page call(Page currentPage);
         

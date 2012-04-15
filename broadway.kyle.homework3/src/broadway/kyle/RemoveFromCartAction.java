@@ -45,7 +45,7 @@ public class RemoveFromCartAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(removeFromCartCommand);
-            return "Good";
+            return "Ok";
         }
         else
         {

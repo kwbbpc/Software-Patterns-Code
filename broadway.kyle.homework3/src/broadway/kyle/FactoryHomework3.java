@@ -38,4 +38,9 @@ public class FactoryHomework3
         return new UpdateCustomerAction(customer, undoManager);
     }
 
+    public static NullAction createNullAction()
+    {
+        return new NullAction();
+    }
+
 }

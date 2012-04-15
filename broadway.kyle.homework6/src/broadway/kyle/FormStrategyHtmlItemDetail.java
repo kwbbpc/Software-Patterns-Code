@@ -27,7 +27,7 @@ public class FormStrategyHtmlItemDetail implements FormStrategy
         Form customerForm = FactoryCompositeTags.createForm("controller?action=addToCart&page=itemDetail", "post");
         customerForm.add(FactoryCompositeTags.createField("quantity", "Quantity", "1"));
         customerForm.add(FactoryCompositeTags.createButton("addToCart", "Add to Cart"));
-        customerForm.add(FactoryCompositeTags.createHidden("itemId", product.getId()));
+        customerForm.add(FactoryCompositeTags.createHidden("id", product.getId()));
         return customerForm;
     }
 }

@@ -43,7 +43,7 @@ public class PurchaseAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(purchaseCartCommand);
-            return "Good";
+            return "Ok";
         }
         else
         {

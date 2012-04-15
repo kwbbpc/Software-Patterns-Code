@@ -12,7 +12,7 @@ public class FooterStrategyHtmlShoppingCart extends FooterStrategy
     public void build(HTML html, UndoManager undoManager)
     {
         html.add(FactoryCompositeTags.createParagraph("").add(FactoryCompositeTags.createAnchor("Edit Customer Details", createControllerActionLink("editCustomer", "cart"), null)));
-        html.add(FactoryCompositeTags.createParagraph("").add(FactoryCompositeTags.createAnchor("View Cart", createControllerActionLink("viewCart", "cart"), null)));
+        html.add(FactoryCompositeTags.createParagraph("").add(FactoryCompositeTags.createAnchor("View Catalog", createControllerActionLink("viewCatalog", "cart"), null)));
         html.add(FactoryCompositeTags.createParagraph("").add(FactoryCompositeTags.createAnchor("Checkout", createControllerActionLink("purchase", "cart"), null)));
         if (undoManager.getUndoName() != null)
             html.add(FactoryCompositeTags.createParagraph("").add(FactoryCompositeTags.createAnchor("Undo " + undoManager.getUndoName(), createControllerActionLink("undo", "cart"), null)));

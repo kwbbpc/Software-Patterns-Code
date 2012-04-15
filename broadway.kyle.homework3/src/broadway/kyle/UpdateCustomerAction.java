@@ -56,7 +56,7 @@ public class UpdateCustomerAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(updateCustomerCommand);
-            return "Good";
+            return "Ok";
         }
         else
         {

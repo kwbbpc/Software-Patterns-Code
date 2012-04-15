@@ -1,9 +1,7 @@
 package broadway.kyle;
 
-import java.util.List;
 
-import broadway.kyle.PageParameters.CatalogPage;
-import broadway.kyle.compositeHtmlRendering.Renderer;
+
 
     
     
@@ -261,6 +259,30 @@ import broadway.kyle.compositeHtmlRendering.Renderer;
         public Page viewItemBad()
         {
             return this;
+        }
+        
+        @Override
+        public Page undoOk()
+        {
+            return Catalog;
+        }
+
+        @Override
+        public Page undoBad()
+        {
+            return Catalog;
+        }
+
+        @Override
+        public Page redoOk()
+        {
+            return Catalog;
+        }
+
+        @Override
+        public Page redoBad()
+        {
+            return Catalog;
         }
         
         @Override

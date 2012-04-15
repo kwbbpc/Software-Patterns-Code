@@ -34,15 +34,14 @@ public class Controller extends HttpServlet
     private Client client = FactoryHomework1.createClient();
     private UndoManager commandManager = FactoryHomework2.createUndoManager();
     private Map<String, ActionStrategy> strategyMap = FactoryCollection.createMap();
-    private Builder builder;
 
-    private PageWriter pageWriter;
+    private StringBuffer buffer;
 
     @Override
     public void init() throws ServletException
     {
 
-        pageWriter = new PageWriter();
+        buffer = new StringBuffer();
 
         boolean enableLogging = "true".equalsIgnoreCase(getInitParameter("enableLogging"));
 
@@ -65,12 +64,14 @@ public class Controller extends HttpServlet
         //Create the different strategies
         strategyMap.put("addToCart", FactoryHomework3.createAddToCartAction(client, commandManager));
         strategyMap.put("removeFromCart", FactoryHomework3.createRemoveFromCartAction(client, commandManager));
-        strategyMap.put("purchaseCart", FactoryHomework3.createPurchaseAction(client, commandManager, cart));
-        strategyMap.put("editCustomer", FactoryHomework3.createUpdateCustomerAction(customer, commandManager));
+        strategyMap.put("purchase", FactoryHomework3.createPurchaseAction(client, commandManager, cart));
+        strategyMap.put("updateCustomer", FactoryHomework3.createUpdateCustomerAction(customer, commandManager));
+        strategyMap.put("editCustomer", FactoryHomework3.createNullAction());
+        strategyMap.put("viewCart", FactoryHomework3.createNullAction());
+        strategyMap.put("viewCatalog", FactoryHomework3.createNullAction());
+        strategyMap.put("viewItem", FactoryHomework3.createNullAction());
         strategyMap.put("undo", FactoryHomework3.createUndoAction(commandManager));
         strategyMap.put("redo", FactoryHomework3.createRedoAction(commandManager));
-
-        builder = new BuilderHtml();
 
         super.init();
     }
@@ -197,7 +198,6 @@ public class Controller extends HttpServlet
             pageString = pageString.substring(0, 1).toUpperCase() + pageString.substring(1);
             Pages currentPage = Pages.valueOf(pageString);
 
-            //figure out the next state
             nextPage = (Page.actionResult.valueOf(actionString + result)).call(currentPage);
         }
         else
@@ -210,8 +210,16 @@ public class Controller extends HttpServlet
         Director nextPageToRender = GetRenderer(nextPage, id);
 
         //Render it.
-        nextPageToRender.build(pageWriter.getPrintStream());
-        response.getWriter().println(pageWriter.printString());
+
+        ByteArrayOutputStream byteStream;
+        PrintStream stream;
+
+        //initialize the stream
+        byteStream = new ByteArrayOutputStream();
+        stream = new PrintStream(byteStream);
+        nextPageToRender.build(stream);
+        response.getWriter().println(byteStream.toString());
+        byteStream.reset();
 
     }
 
@@ -221,20 +229,20 @@ public class Controller extends HttpServlet
         switch (page.getType())
         {
             case CustomerEdit:
-                return (Director) page.getPageRenderer(new PageParameters.CustomerEdit(builder, customer, commandManager));
+                return (Director) page.getPageRenderer(new PageParameters.CustomerEdit(new BuilderHtml(), customer, commandManager));
             case Catalog:
-                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(builder, commandManager, inventory, catalog));
+                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(new BuilderHtml(), commandManager, inventory, catalog));
             case ItemDetail:
-                return (Director) page.getPageRenderer(new PageParameters.ItemDetail(builder, commandManager, catalog.getProduct(id)));
+                return (Director) page.getPageRenderer(new PageParameters.ItemDetail(new BuilderHtml(), commandManager, catalog.getProduct(id)));
             case Confirmation:
-                return (Director) page.getPageRenderer(new PageParameters.Confirmation(builder, commandManager));
+                return (Director) page.getPageRenderer(new PageParameters.Confirmation(new BuilderHtml(), commandManager));
             case PurchaseHistory:
-                return (Director) page.getPageRenderer(new PageParameters.PurchaseHistory(builder, commandManager, catalog, customer.getBoughtItems()));
+                return (Director) page.getPageRenderer(new PageParameters.PurchaseHistory(new BuilderHtml(), commandManager, catalog, customer.getBoughtItems()));
             case Cart:
-                return (Director) page.getPageRenderer(new PageParameters.Cart(builder, commandManager, catalog, customer.getCart()));
+                return (Director) page.getPageRenderer(new PageParameters.Cart(new BuilderHtml(), commandManager, catalog, customer.getCart()));
             default:
                 assert (false);
-                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(builder, commandManager, inventory, catalog));
+                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(new BuilderHtml(), commandManager, inventory, catalog));
         }
 
     }
@@ -244,34 +252,8 @@ public class Controller extends HttpServlet
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        // TODO Auto-generated method stub
-    }
-
-    private class PageWriter
-    {
-
-        private ByteArrayOutputStream byteStream;
-        private PrintStream stream;
-
-        public PageWriter()
-        {
-            //initialize the stream
-            byteStream = new ByteArrayOutputStream();
-            stream = new PrintStream(byteStream);
-        }
-
-        public PrintStream getPrintStream()
-        {
-            return stream;
-        }
-
-        public String printString()
-        {
-            String string = byteStream.toString();
-            byteStream.reset();
-            return string;
-        }
-
+        //Probably not correct to doGet from a doPost, but it's all handled in doGet.
+        doGet(request, response);
     }
 
 }

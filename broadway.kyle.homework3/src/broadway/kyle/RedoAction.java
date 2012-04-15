@@ -27,7 +27,7 @@ public class RedoAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.redo();
-            return "Good";
+            return "Ok";
         }
         else
         {

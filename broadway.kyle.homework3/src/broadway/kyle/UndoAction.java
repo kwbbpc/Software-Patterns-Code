@@ -28,7 +28,7 @@ public class UndoAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.undo();
-            return "Good";
+            return "Ok";
         }
         else
         {
