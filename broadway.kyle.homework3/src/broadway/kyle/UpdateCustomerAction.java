@@ -40,7 +40,7 @@ public class UpdateCustomerAction implements ActionStrategy
      * @see broadway.kyle.ActionStrategy#go(java.util.Map)
      */
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
 
         String id = ParameterParser.find(ParameterParser.id, parameters);
@@ -56,11 +56,13 @@ public class UpdateCustomerAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(updateCustomerCommand);
+            return "Good";
         }
         else
         {
             System.out.println("Failed to execute customer update: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
 
     }

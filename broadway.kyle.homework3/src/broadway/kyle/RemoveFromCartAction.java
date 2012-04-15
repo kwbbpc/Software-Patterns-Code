@@ -32,7 +32,7 @@ public class RemoveFromCartAction implements ActionStrategy
      * @see broadway.kyle.ActionStrategy#go(java.util.Map)
      */
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
         //Read the itemId
         String productId = ParameterParser.find(ParameterParser.itemId, parameters);
@@ -45,11 +45,13 @@ public class RemoveFromCartAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(removeFromCartCommand);
+            return "Good";
         }
         else
         {
             System.out.println("Failed to execute remove from cart: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
 
     }

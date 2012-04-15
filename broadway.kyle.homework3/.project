@@ -9,6 +9,9 @@
 		<project>com.javadude.hw1.starter</project>
 		<project>com.javadude.hw2.starter</project>
 		<project>broadway.kyle.homework5</project>
+		<project>broadway.kyle.homework6</project>
+		<project>broadway.kyle.homework8</project>
+		<project>broadway.kyle.homework4</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

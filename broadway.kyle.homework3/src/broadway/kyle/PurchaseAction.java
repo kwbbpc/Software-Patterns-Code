@@ -25,8 +25,7 @@ public class PurchaseAction implements ActionStrategy
      * @param cart
      * The product holder that's holding the items to purchase
      */
-    PurchaseAction(Client client, UndoManager commandManager,
-            ProductHolder cart)
+    PurchaseAction(Client client, UndoManager commandManager, ProductHolder cart)
     {
         super();
         this.client = client;
@@ -35,7 +34,7 @@ public class PurchaseAction implements ActionStrategy
     }
 
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
         //create the purchase cart command
         Command purchaseCartCommand = FactoryHomework2.createPurchaseCommand(client, cart);
@@ -44,11 +43,13 @@ public class PurchaseAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(purchaseCartCommand);
+            return "Good";
         }
         else
         {
             System.out.println("Failed to execute purchase cart: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
     }
 

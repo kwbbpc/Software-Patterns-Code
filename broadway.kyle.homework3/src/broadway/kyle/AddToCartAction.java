@@ -40,7 +40,7 @@ public class AddToCartAction implements ActionStrategy
      * @see broadway.kyle.ActionStrategy#go(java.util.Map)
      */
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
 
         String productId = null;
@@ -56,11 +56,13 @@ public class AddToCartAction implements ActionStrategy
         if (commandManager != null)
         {
             commandManager.execute(addToCartCommand);
+            return "Good";
         }
         else
         {
             System.out.println("Failed to execute add to cart: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
 
     }

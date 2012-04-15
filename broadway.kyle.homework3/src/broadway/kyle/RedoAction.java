@@ -20,18 +20,20 @@ public class RedoAction implements ActionStrategy
     }
 
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
 
         //Redo
         if (commandManager != null)
         {
             commandManager.redo();
+            return "Good";
         }
         else
         {
             System.out.println("Failed to redo: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
 
     }

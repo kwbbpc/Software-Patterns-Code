@@ -21,6 +21,15 @@
         <dependent-module archiveName="broadway.kyle.homework5.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework5/broadway.kyle.homework5">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework6/broadway.kyle.homework6">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework8.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework8/broadway.kyle.homework8">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="broadway.kyle.homework4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework4/broadway.kyle.homework4">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="broadway.kyle.homework3"/>
         <property name="java-output-path" value="/broadway.kyle.homework3/build/classes"/>
     </wb-module>

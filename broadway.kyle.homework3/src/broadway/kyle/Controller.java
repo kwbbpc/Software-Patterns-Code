@@ -1,6 +1,8 @@
 package broadway.kyle;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -32,10 +34,15 @@ public class Controller extends HttpServlet
     private Client client = FactoryHomework1.createClient();
     private UndoManager commandManager = FactoryHomework2.createUndoManager();
     private Map<String, ActionStrategy> strategyMap = FactoryCollection.createMap();
+    private Builder builder;
+
+    private PageWriter pageWriter;
 
     @Override
     public void init() throws ServletException
     {
+
+        pageWriter = new PageWriter();
 
         boolean enableLogging = "true".equalsIgnoreCase(getInitParameter("enableLogging"));
 
@@ -62,6 +69,8 @@ public class Controller extends HttpServlet
         strategyMap.put("editCustomer", FactoryHomework3.createUpdateCustomerAction(customer, commandManager));
         strategyMap.put("undo", FactoryHomework3.createUndoAction(commandManager));
         strategyMap.put("redo", FactoryHomework3.createRedoAction(commandManager));
+
+        builder = new BuilderHtml();
 
         super.init();
     }
@@ -155,17 +164,77 @@ public class Controller extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 
-        //Template Method
+        //result from the page
+        String result = "Bad";
+
+        //id parameter (viewItem only)
+        String id = request.getParameter("id");
+
+        //get the action parameter.  This is the event to transition on.
         String actionString = request.getParameter("action");
 
-        //find the requested action in the map and execute it
-        if (actionString != null)
+        //get the page parameter passed in.  This is the current state.
+        String pageString = request.getParameter("page");
+
+        Page nextPage = Pages.Catalog;
+
+        if (actionString != null && pageString != null)
         {
+            //find the requested action in the map and execute it
             ActionStrategy action = strategyMap.get(actionString);
             if (action != null)
             {
-                action.go(request.getParameterMap());
+                //Template Method
+                result = action.go(request.getParameterMap());
             }
+            else
+            {
+                //if there's no action, its Ok if its a view request
+                result = "Ok";
+            }
+
+            //get the current state from the current page
+            pageString = pageString.substring(0, 1).toUpperCase() + pageString.substring(1);
+            Pages currentPage = Pages.valueOf(pageString);
+
+            //figure out the next state
+            nextPage = (Page.actionResult.valueOf(actionString + result)).call(currentPage);
+        }
+        else
+        {
+            //the next page should be the catalog if there were no parameters.
+            nextPage = Pages.Catalog;
+        }
+
+        //Get the renderer of the next state
+        Director nextPageToRender = GetRenderer(nextPage, id);
+
+        //Render it.
+        nextPageToRender.build(pageWriter.getPrintStream());
+        response.getWriter().println(pageWriter.printString());
+
+    }
+
+    private Director GetRenderer(Page page, String id)
+    {
+
+        switch (page.getType())
+        {
+            case CustomerEdit:
+                return (Director) page.getPageRenderer(new PageParameters.CustomerEdit(builder, customer, commandManager));
+            case Catalog:
+                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(builder, commandManager, inventory, catalog));
+            case ItemDetail:
+                return (Director) page.getPageRenderer(new PageParameters.ItemDetail(builder, commandManager, catalog.getProduct(id)));
+            case Confirmation:
+                return (Director) page.getPageRenderer(new PageParameters.Confirmation(builder, commandManager));
+            case PurchaseHistory:
+                return (Director) page.getPageRenderer(new PageParameters.PurchaseHistory(builder, commandManager, catalog, customer.getBoughtItems()));
+            case Cart:
+                return (Director) page.getPageRenderer(new PageParameters.Cart(builder, commandManager, catalog, customer.getCart()));
+            default:
+                assert (false);
+                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(builder, commandManager, inventory, catalog));
         }
 
     }
@@ -176,6 +245,33 @@ public class Controller extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         // TODO Auto-generated method stub
+    }
+
+    private class PageWriter
+    {
+
+        private ByteArrayOutputStream byteStream;
+        private PrintStream stream;
+
+        public PageWriter()
+        {
+            //initialize the stream
+            byteStream = new ByteArrayOutputStream();
+            stream = new PrintStream(byteStream);
+        }
+
+        public PrintStream getPrintStream()
+        {
+            return stream;
+        }
+
+        public String printString()
+        {
+            String string = byteStream.toString();
+            byteStream.reset();
+            return string;
+        }
+
     }
 
 }

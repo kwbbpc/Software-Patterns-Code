@@ -13,7 +13,8 @@ public interface ActionStrategy
      * Execute the particular action to take
      * 
      * @param strategy
+     * @return 
      */
-    void go(Map<String, String[]> parameters);
+    String go(Map<String, String[]> parameters);
 
 }

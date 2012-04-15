@@ -21,18 +21,20 @@ public class UndoAction implements ActionStrategy
     }
 
     @Override
-    public void go(Map<String, String[]> parameters)
+    public String go(Map<String, String[]> parameters)
     {
 
         //Undo
         if (commandManager != null)
         {
             commandManager.undo();
+            return "Good";
         }
         else
         {
             System.out.println("Failed to undo: command manager does not exist.");
             assert (false);
+            return "Bad";
         }
 
     }
