@@ -19,8 +19,9 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework5"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.javadude.hw2.starter"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework8"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/broadway.kyle.homework9"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/HW9Libs"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

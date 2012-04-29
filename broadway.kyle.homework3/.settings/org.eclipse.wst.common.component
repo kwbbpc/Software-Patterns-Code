@@ -24,10 +24,13 @@
         <dependent-module archiveName="broadway.kyle.homework6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework6/broadway.kyle.homework6">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="broadway.kyle.homework8.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework8/broadway.kyle.homework8">
+        <dependent-module archiveName="HW9Libs.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HW9Libs/HW9Libs">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="broadway.kyle.homework4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework4/broadway.kyle.homework4">
+        <dependent-module archiveName="broadway.kyle.homework9.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework9/broadway.kyle.homework9">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="broadway.htmlframework.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/broadway.kyle.homework4/broadway.kyle.homework4">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="broadway.kyle.homework3"/>

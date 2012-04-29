@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import com.javadude.beans.Catalog;
 import com.javadude.beans.Client;
 import com.javadude.beans.Customer;
@@ -173,13 +178,19 @@ public class Controller extends HttpServlet
 
         //get the action parameter.  This is the event to transition on.
         String actionString = request.getParameter("action");
+        if (actionString == null)
+            actionString = "";
 
         //get the page parameter passed in.  This is the current state.
         String pageString = request.getParameter("page");
+        if (pageString == null)
+            pageString = "catalog";
 
-        Page nextPage = Pages.Catalog;
+        Resource resource = new ClassPathResource("beans.xml");
+        BeanFactory factory = new XmlBeanFactory(resource);
+        Pages pages = (Pages) factory.getBean("pages");
 
-        if (actionString != null && pageString != null)
+        if (actionString != null)
         {
             //find the requested action in the map and execute it
             ActionStrategy action = strategyMap.get(actionString);
@@ -194,55 +205,53 @@ public class Controller extends HttpServlet
                 result = "Ok";
             }
 
-            //get the current state from the current page
-            pageString = pageString.substring(0, 1).toUpperCase() + pageString.substring(1);
-            Pages currentPage = Pages.valueOf(pageString);
+        }
 
-            nextPage = (Page.actionResult.valueOf(actionString + result)).call(currentPage);
-        }
-        else
+        Page currentPage = pages.getPageNameMap().get(pageString);
+        if (currentPage == null)
         {
-            //the next page should be the catalog if there were no parameters.
-            nextPage = Pages.Catalog;
+            assert (false);
+            currentPage = pages.getPageNameMap().get("catalog");
         }
+        Page nextPage = currentPage.getTransition().getNextPageMap().get(actionString + result);
 
         //Get the renderer of the next state
-        Director nextPageToRender = GetRenderer(nextPage, id);
-
-        //Render it.
-
         ByteArrayOutputStream byteStream;
         PrintStream stream;
 
-        //initialize the stream
         byteStream = new ByteArrayOutputStream();
         stream = new PrintStream(byteStream);
+
+        //Render it.
+        Director nextPageToRender = GetRenderer(nextPage, id, stream);
         nextPageToRender.build(stream);
         response.getWriter().println(byteStream.toString());
         byteStream.reset();
 
     }
 
-    private Director GetRenderer(Page page, String id)
+    private Director GetRenderer(Page page, String id, PrintStream stream)
     {
 
-        switch (page.getType())
+        if (page == null)
+            return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
+
+        if (page.getPageName().equalsIgnoreCase("CustomerEdit"))
+            return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
+        else if (page.getPageName().equalsIgnoreCase("Catalog"))
+            return new DirectorCatalog(new BuilderHtml(), inventory, catalog, commandManager);
+        else if (page.getPageName().equalsIgnoreCase("ItemDetail"))
+            return new DirectorItemDetail(new BuilderHtml(), catalog.getProduct(id), commandManager);
+        else if (page.getPageName().equalsIgnoreCase("Confirmation"))
+            return new DirectorPurchaseConfirmation(new BuilderHtml(), commandManager);
+        else if (page.getPageName().equalsIgnoreCase("PurchasHistory"))
+            return new DirectorPurchaseHistory(new BuilderHtml(), commandManager, catalog, customer.getBoughtItems());
+        else if (page.getPageName().equalsIgnoreCase("Cart"))
+            return new DirectorShoppingCart(new BuilderHtml(), customer.getCart(), catalog, commandManager);
+        else
         {
-            case CustomerEdit:
-                return (Director) page.getPageRenderer(new PageParameters.CustomerEdit(new BuilderHtml(), customer, commandManager));
-            case Catalog:
-                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(new BuilderHtml(), commandManager, inventory, catalog));
-            case ItemDetail:
-                return (Director) page.getPageRenderer(new PageParameters.ItemDetail(new BuilderHtml(), commandManager, catalog.getProduct(id)));
-            case Confirmation:
-                return (Director) page.getPageRenderer(new PageParameters.Confirmation(new BuilderHtml(), commandManager));
-            case PurchaseHistory:
-                return (Director) page.getPageRenderer(new PageParameters.PurchaseHistory(new BuilderHtml(), commandManager, catalog, customer.getBoughtItems()));
-            case Cart:
-                return (Director) page.getPageRenderer(new PageParameters.Cart(new BuilderHtml(), commandManager, catalog, customer.getCart()));
-            default:
-                assert (false);
-                return (Director) page.getPageRenderer(new PageParameters.CatalogPage(new BuilderHtml(), commandManager, inventory, catalog));
+            assert (false);
+            return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
         }
 
     }

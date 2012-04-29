@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>broadway.kyle.homework3</name>
+	<name>broadway.kyle.homework9</name>
 	<comment></comment>
 	<projects>
-		<project>broadway.kyle.homework1</project>
-		<project>broadway.kyle.homework2</project>
-		<project>broadway.kyle.homework7</project>
-		<project>com.javadude.hw1.starter</project>
-		<project>com.javadude.hw2.starter</project>
-		<project>broadway.kyle.homework5</project>
-		<project>broadway.kyle.homework6</project>
-		<project>HW9Libs</project>
-		<project>broadway.kyle.homework9</project>
-		<project>broadway.kyle.homework4</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -26,7 +21,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -39,8 +34,9 @@
 	<natures>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
-		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>org.deved.antlride.core.nature</nature>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 </projectDescription>

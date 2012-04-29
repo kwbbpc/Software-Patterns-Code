@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+	
+	
+	
+	<!-- Here I chose to just have one single page transition flow from each page.
+	In order to have different transition flows from pages, just define another ID of transition,
+	and then wire the pages specifically to the transition flow that they should use. -->
+	<bean id="PageTransition" class="broadway.kyle.TransitionBean">
+		<property name="nextPageMap">
+			<map>
+				<entry>
+					<key>
+						<value>editCustomerOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="CustomerEdit"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>viewCatalogOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Catalog"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>viewItemOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="ItemDetail"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+								<entry>
+					<key>
+						<value>viewItemBad</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Catalog"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>viewCartOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Cart"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>purchaseOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Confirmation"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>purchaseBad</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Catalog"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>addToCartOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Cart"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>addToCartBad</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Catalog"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>removeFromCartOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Cart"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>removeFromCartBad</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="Catalog"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>updateCustomerOk</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="CustomerEdit"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>updateCustomerBad</value>
+					</key>
+					<bean class="broadway.kyle.PageBean">
+						<property name="pageName" value="CustomerEdit"></property>
+						<property name="transition" ref="PageTransition"></property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="customerEditPageBean" class="broadway.kyle.PageBean">
+		<property name="pageName">
+			<value>CustomerEdit</value>
+		</property>
+		<property name="transition" ref="PageTransition" />
+	</bean>
+	<bean id="catalogPageBean" class="broadway.kyle.PageBean">
+		<property name="pageName">
+			<value>Catalog</value>
+		</property>
+		<property name="transition" ref="PageTransition" />
+	</bean>
+	<bean id="itemDetailPageBean" class="broadway.kyle.PageBean">
+		<property name="pageName">
+			<value>ItemDetail</value>
+		</property>
+		<property name="transition" ref="PageTransition" />
+	</bean>
+	<bean id="confirmationPageBean" class="broadway.kyle.PageBean">
+		<property name="pageName">
+			<value>Confirmation</value>
+		</property>
+		<property name="transition" ref="PageTransition" />
+	</bean>
+	<bean id="purchaseHistoryPageBean" class="broadway.kyle.PageBean">
+		<property name="pageName">
+			<value>PurchaseHistory</value>
+		</property>
+		<property name="transition" ref="PageTransition" />
+	</bean>
+
+	<bean id="pages" class="broadway.kyle.PagesBean" autowire="byType">
+		<property name="pageNameMap">
+			<map>
+				<entry>
+					<key>
+						<value>customerEdit</value>
+					</key>
+					<bean class="broadway.kyle.PageBean" autowire="byType">
+						<property name="pageName" value="CustomerEdit" />
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>catalog</value>
+					</key>
+					<bean class="broadway.kyle.PageBean" autowire="byType">
+						<property name="pageName" value="Catalog" />
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>itemDetail</value>
+					</key>
+					<bean class="broadway.kyle.PageBean" autowire="byType">
+						<property name="pageName" value="ItemDetail" />
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>confirmation</value>
+					</key>
+					<bean class="broadway.kyle.PageBean" autowire="byType">
+						<property name="pageName" value="Confirmation" />
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>purchaseHistory</value>
+					</key>
+					<bean class="broadway.kyle.PageBean" autowire="byType">
+						<property name="pageName" value="PurchaseHistory" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>
