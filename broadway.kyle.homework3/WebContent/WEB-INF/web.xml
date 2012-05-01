@@ -9,7 +9,11 @@
       <init-param> 
         <param-name>logger</param-name> 
         <param-value>standard</param-value> 
-      </init-param>         
+      </init-param>  
+      <init-param> 
+        <param-name>flow</param-name> 
+        <param-value>spring</param-value> 
+      </init-param>          
     </servlet> 
     <servlet-mapping> 
       <servlet-name>controller</servlet-name> 

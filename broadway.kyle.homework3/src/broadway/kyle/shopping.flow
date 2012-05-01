@@ -1,0 +1,129 @@
+page customerEdit
+	on editCustomer
+		when Ok goto customerEdit
+		when Bad stay
+	on viewCatalog
+		when Ok goto Catalog
+		when Bad stay
+	on viewItem
+		when Ok goto itemDetail
+		when Bad goto catalog
+	on viewCart
+		when Ok goto cart
+		when Bad stay
+	on purchase
+		when Ok goto confirmation
+		when Bad goto catalog
+	on addToCart
+		when Ok goto cart
+		when Bad goto catalog
+	on removeFromCart
+		when Ok goto cart
+		when Bad goto catalog
+	on updateCustomer
+		when Ok goto customerEdit
+		when Bad goto customerEdit
+
+page catalog
+	on editCustomer
+		when Ok goto customerEdit
+		when Bad stay
+	on viewCatalog
+		when Ok goto Catalog
+		when Bad stay
+	on viewItem
+		when Ok goto itemDetail
+		when Bad goto catalog
+	on viewCart
+		when Ok goto cart
+		when Bad stay
+	on purchase
+		when Ok goto confirmation
+		when Bad goto catalog
+	on addToCart
+		when Ok goto cart
+		when Bad goto catalog
+	on removeFromCart
+		when Ok goto cart
+		when Bad goto catalog
+	on updateCustomer
+		when Ok goto customerEdit
+		when Bad goto customerEdit
+
+page cart
+	on editCustomer
+		when Ok goto customerEdit
+		when Bad stay
+	on viewCatalog
+		when Ok goto Catalog
+		when Bad stay
+	on viewItem
+		when Ok goto itemDetail
+		when Bad goto catalog
+	on viewCart
+		when Ok goto cart
+		when Bad stay
+	on purchase
+		when Ok goto confirmation
+		when Bad goto catalog
+	on addToCart
+		when Ok goto cart
+		when Bad goto catalog
+	on removeFromCart
+		when Ok goto cart
+		when Bad goto catalog
+	on updateCustomer
+		when Ok goto customerEdit
+		when Bad goto customerEdit
+		
+page confirmation
+	on editCustomer
+		when Ok goto customerEdit
+		when Bad stay
+	on viewCatalog
+		when Ok goto Catalog
+		when Bad stay
+	on viewItem
+		when Ok goto itemDetail
+		when Bad goto catalog
+	on viewCart
+		when Ok goto cart
+		when Bad stay
+	on purchase
+		when Ok goto confirmation
+		when Bad goto catalog
+	on addToCart
+		when Ok goto cart
+		when Bad goto catalog
+	on removeFromCart
+		when Ok goto cart
+		when Bad goto catalog
+	on updateCustomer
+		when Ok goto customerEdit
+		when Bad goto customerEdit
+		
+page itemDetail
+	on editCustomer
+		when Ok goto customerEdit
+		when Bad stay
+	on viewCatalog
+		when Ok goto Catalog
+		when Bad stay
+	on viewItem
+		when Ok goto itemDetail
+		when Bad goto catalog
+	on viewCart
+		when Ok goto cart
+		when Bad stay
+	on purchase
+		when Ok goto confirmation
+		when Bad goto catalog
+	on addToCart
+		when Ok goto cart
+		when Bad goto catalog
+	on removeFromCart
+		when Ok goto cart
+		when Bad goto catalog
+	on updateCustomer
+		when Ok goto customerEdit
+		when Bad goto customerEdit

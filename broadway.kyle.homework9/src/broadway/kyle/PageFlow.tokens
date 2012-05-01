@@ -1,0 +1,15 @@
+T__9=9
+T__10=10
+T__11=11
+T__12=12
+T__13=13
+Identifier=4
+Letter=5
+MultiLineComment=6
+SingleLineComment=7
+Whitespace=8
+'goto'=9
+'on'=10
+'page'=11
+'stay'=12
+'when'=13

@@ -6,6 +6,12 @@ public class PageBean implements Page
     String pageName;
     Transition transition;
 
+    public PageBean()
+    {
+        pageName = "";
+        transition = new TransitionBean();
+    }
+
     @Override
     public Transition getTransition()
     {

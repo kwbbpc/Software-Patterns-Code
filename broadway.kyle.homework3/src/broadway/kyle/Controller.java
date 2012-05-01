@@ -2,6 +2,7 @@ package broadway.kyle;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Map;
 
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -39,16 +43,14 @@ public class Controller extends HttpServlet
     private Client client = FactoryHomework1.createClient();
     private UndoManager commandManager = FactoryHomework2.createUndoManager();
     private Map<String, ActionStrategy> strategyMap = FactoryCollection.createMap();
-
-    private StringBuffer buffer;
+    private String flow;
 
     @Override
     public void init() throws ServletException
     {
 
-        buffer = new StringBuffer();
-
         boolean enableLogging = "true".equalsIgnoreCase(getInitParameter("enableLogging"));
+        flow = getInitParameter("flow");
 
         if ("alternate".equalsIgnoreCase(getInitParameter("logger")))
             FactoryHomework2.SetLogger(new AlternateLoggerAdapter(new AlternateLogger()), enableLogging);
@@ -186,9 +188,34 @@ public class Controller extends HttpServlet
         if (pageString == null)
             pageString = "catalog";
 
-        Resource resource = new ClassPathResource("beans.xml");
-        BeanFactory factory = new XmlBeanFactory(resource);
-        Pages pages = (Pages) factory.getBean("pages");
+        Pages pages = new PagesBean();
+
+        if (flow.equalsIgnoreCase("spring"))
+        {
+            Resource resource = new ClassPathResource("beans.xml");
+            BeanFactory factory = new XmlBeanFactory(resource);
+            pages = (Pages) factory.getBean("pages");
+        }
+        else
+        //flow = dsl by default
+        {
+            InputStream stream = getClass().getResourceAsStream("shopping.flow");
+            ANTLRInputStream input = new ANTLRInputStream(stream);
+            PageFlowLexer lexer = new PageFlowLexer(input);
+            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+            PageFlowParser parser = new PageFlowParser(tokenStream);
+
+            try
+            {
+                parser.pages(pages);
+            }
+            catch (RecognitionException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
 
         if (actionString != null)
         {
@@ -234,7 +261,7 @@ public class Controller extends HttpServlet
     {
 
         if (page == null)
-            return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
+            return new DirectorCatalog(new BuilderHtml(), inventory, catalog, commandManager);
 
         if (page.getPageName().equalsIgnoreCase("CustomerEdit"))
             return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
@@ -251,7 +278,7 @@ public class Controller extends HttpServlet
         else
         {
             assert (false);
-            return new DirectorCustomerEdit(new BuilderHtml(), customer, commandManager);
+            return new DirectorCatalog(new BuilderHtml(), inventory, catalog, commandManager);
         }
 
     }
